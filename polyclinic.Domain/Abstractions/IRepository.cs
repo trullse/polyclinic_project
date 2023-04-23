@@ -17,8 +17,8 @@ namespace polyclinic.Domain.Abstractions
         /// <param name="cancellationToken"></param>
         /// <param name="includesProperties">Делегаты для подключения навигационных свойств</param>
         /// <returns></returns>
-        Task<T> GetByIdAsync(int id, CancellationToken cancellationToken = default,
-        params Expression<Func<T, object>>[]? includesProperties);
+        Task<T?> GetByIdAsync(int id, CancellationToken cancellationToken = default,
+        params Expression<Func<T, object>>[] includesProperties);
         /// <summary>
         /// Получение всего списка сущностей
         /// </summary>
@@ -33,9 +33,9 @@ namespace polyclinic.Domain.Abstractions
         /// <param name="cancellationToken"></param>
         /// <param name="includesProperties">Делегаты для подключения навигационных свойств</param>
         /// <returns></returns>
-        Task<IReadOnlyList<T>> ListAsync(Expression<Func<T, bool>> filter,
+        Task<IReadOnlyList<T>> ListAsync(Expression<Func<T, bool>>? filter,
         CancellationToken cancellationToken = default,
-        params Expression<Func<T, object>>[]? includesProperties);
+        params Expression<Func<T, object>>[] includesProperties);
         /// <summary>
         /// Добавление новой сущности
         /// </summary>
@@ -64,7 +64,7 @@ namespace polyclinic.Domain.Abstractions
         /// <param name="filter">Делегат-условие отбора</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> filter, CancellationToken
+        Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> filter, CancellationToken
         cancellationToken = default);
     }
 }
