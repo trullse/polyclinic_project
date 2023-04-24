@@ -8,11 +8,11 @@ namespace polyclinic.Domain.Entities
 {
     public class Appointment : Entity
     {
-        public int ClientId { get; private set; }
-        public int DoctorId { get; set; }
-        public string Diagnosis { get; set; }
-        public double TreatmentCost { get; set; }
-        public DateTime AppointmentDate { get; set; }
+        public int? ClientId { get; set; }
+        public int? DoctorId { get; set; }
+        public string? Diagnosis { get; set; }
+        public double? TreatmentCost { get; set; }
+        public DateTime? AppointmentDate { get; set; }
         public Appointment(int id, int clientId, int doctorId, string diagnosis, double treatmentCost, DateTime appointmentDate)
         {
             Id = id;
@@ -21,6 +21,10 @@ namespace polyclinic.Domain.Entities
             Diagnosis = diagnosis;
             TreatmentCost = treatmentCost;
             AppointmentDate = appointmentDate;
+        }
+
+        public Appointment()
+        {
         }
     }
 }
