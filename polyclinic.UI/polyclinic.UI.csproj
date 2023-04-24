@@ -6,17 +6,17 @@
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
 		<OutputType>Exe</OutputType>
-		<RootNamespace>polyclinic</RootNamespace>
+		<RootNamespace>polyclinic.UI</RootNamespace>
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 
 		<!-- Display name -->
-		<ApplicationTitle>polyclinic</ApplicationTitle>
+		<ApplicationTitle>polyclinic.UI</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.polyclinic</ApplicationId>
-		<ApplicationIdGuid>9bba788c-aa30-460d-a81f-ab61aa56ee03</ApplicationIdGuid>
+		<ApplicationId>com.companyname.polyclinic.ui</ApplicationId>
+		<ApplicationIdGuid>5f2138ff-ce43-4c25-8559-31fdc157dde4</ApplicationIdGuid>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -49,14 +49,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Maui" Version="5.1.0" />
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Views\" />
-	  <Folder Include="Models\" />
 	</ItemGroup>
 
 </Project>
