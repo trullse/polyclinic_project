@@ -78,7 +78,7 @@ namespace polyclinic.Persistence.Repository
                         Diagnosis = $"Diagnosis {k++}",
                         ClientId = i,
                         DoctorId = 1,
-                        AppointmentDate = DateTime.Now.AddDays(rand.NextInt64()),
+                        AppointmentDate = DateTime.Now.AddDays(rand.NextInt64() % 30),
                         TreatmentCost = rand.NextDouble() * 10
                     });
         }
