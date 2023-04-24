@@ -24,7 +24,7 @@ namespace polyclinic.Persistence.Repository
         public Task AddAsync(T entity, CancellationToken cancellationToken = default)
         {
             _entities.Add(entity);
-            _context.SaveChangesAsync(cancellationToken: cancellationToken);
+            //_context.SaveChangesAsync(cancellationToken: cancellationToken);
             return Task.CompletedTask;
         }
 
@@ -35,7 +35,7 @@ namespace polyclinic.Persistence.Repository
                 if (_entities.Contains(entity))
                 {
                     _entities.Remove(entity);
-                    _context.SaveChangesAsync(cancellationToken: cancellationToken);
+                    //_context.SaveChangesAsync(cancellationToken: cancellationToken);
                 }
             }
             return Task.CompletedTask;
@@ -99,7 +99,7 @@ namespace polyclinic.Persistence.Repository
         public Task UpdateAsync(T entity, CancellationToken cancellationToken = default)
         {
             _context.Entry(entity).State = EntityState.Modified;
-            _context.SaveChangesAsync(cancellationToken: cancellationToken);
+            //_context.SaveChangesAsync(cancellationToken: cancellationToken);
             return Task.CompletedTask;
         }
     }
