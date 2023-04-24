@@ -20,5 +20,9 @@ namespace polyclinic.Domain.Entities
             Patronymic = patronymic;
             BirthDate = birthDate;
         }
+
+        public Client()
+        {
+        }
     }
 }
