@@ -49,7 +49,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Maui" Version="5.1.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\polyclinic.Application\polyclinic.Application.csproj" />
+	  <ProjectReference Include="..\polyclinic.Domain\polyclinic.Domain.csproj" />
+	  <ProjectReference Include="..\polyclinic.Persistence\polyclinic.Persistence.csproj" />
 	</ItemGroup>
 
 </Project>
