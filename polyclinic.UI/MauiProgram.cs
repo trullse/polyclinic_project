@@ -4,6 +4,7 @@ using polyclinic.Application.Abstractions;
 using polyclinic.Application.Services;
 using polyclinic.Domain.Abstractions;
 using polyclinic.Persistence.Repository;
+using polyclinic.UI.ViewModels;
 
 namespace polyclinic.UI
 {
@@ -41,7 +42,7 @@ namespace polyclinic.UI
             // Views
 
             // ViewModels
-
+            services.AddSingleton<AppointmentsViewModel>();
         }
     }
 }
