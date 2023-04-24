@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\polyclinic.Domain\polyclinic.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
