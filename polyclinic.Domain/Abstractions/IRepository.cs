@@ -56,7 +56,7 @@ namespace polyclinic.Domain.Abstractions
         /// <param name="entity">Сущность, которую следует удалить</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task DeleteAsync(T entity, CancellationToken cancellationToken = default);
+        Task DeleteAsync(T? entity, CancellationToken cancellationToken = default);
         /// <summary>
         /// Поиск первой сущности, удовлетворяющей условию отбора.
         /// Если сущность не найдена, будет возвращено значение по умолчанию

@@ -32,7 +32,7 @@ namespace polyclinic.Persistence.Repository
             throw new NotImplementedException();
         }
 
-        public Task DeleteAsync(Client entity, CancellationToken cancellationToken = default)
+        public Task DeleteAsync(Client? entity, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
@@ -88,7 +88,7 @@ namespace polyclinic.Persistence.Repository
             throw new NotImplementedException();
         }
 
-        public Task DeleteAsync(Appointment entity, CancellationToken cancellationToken = default)
+        public Task DeleteAsync(Appointment? entity, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }

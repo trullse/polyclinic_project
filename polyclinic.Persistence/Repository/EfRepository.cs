@@ -28,7 +28,7 @@ namespace polyclinic.Persistence.Repository
             return Task.CompletedTask;
         }
 
-        public Task DeleteAsync(T entity, CancellationToken cancellationToken = default)
+        public Task DeleteAsync(T? entity, CancellationToken cancellationToken = default)
         {
             if (entity != null)
             {
