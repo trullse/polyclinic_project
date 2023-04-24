@@ -5,6 +5,7 @@ using polyclinic.Application.Services;
 using polyclinic.Domain.Abstractions;
 using polyclinic.Persistence.Repository;
 using polyclinic.UI.ViewModels;
+using polyclinic.UI.Views;
 
 namespace polyclinic.UI
 {
@@ -40,6 +41,7 @@ namespace polyclinic.UI
             services.AddSingleton<IDoctorService, DoctorService>();
 
             // Views
+            services.AddTransient<AppointmentsView>();
 
             // ViewModels
             services.AddSingleton<AppointmentsViewModel>();
