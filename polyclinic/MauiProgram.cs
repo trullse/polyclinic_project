@@ -1,5 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using CommunityToolkit.Maui;
+using polyclinic.Domain.Abstractions;
+using polyclinic.Persistence.Repository;
+using polyclinic.Application.Abstractions;
+using polyclinic.Application.Services;
 
 namespace polyclinic;
 
@@ -17,10 +21,25 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
+		SetupServices(builder.Services);
+
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
 
 		return builder.Build();
+	}
+	private static void SetupServices(IServiceCollection services)
+	{
+		// Services
+		services.AddSingleton<IUnitOfWork, FakeUnitOfWork>();
+		services.AddSingleton<IAppointmentService, AppointmentService>();
+		services.AddSingleton<IClientService, ClientService>();
+		services.AddSingleton<IDoctorService, DoctorService>();
+
+		// Views
+
+		// ViewModels
+
 	}
 }
