@@ -60,4 +60,10 @@
 	  <ProjectReference Include="..\polyclinic.Persistence\polyclinic.Persistence.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <MauiXaml Update="Views\AppointmentsView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>
