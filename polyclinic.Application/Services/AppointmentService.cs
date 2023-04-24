@@ -38,11 +38,6 @@ namespace polyclinic.Application.Services
             return _unitOfWork.AppointmentRepository.GetByIdAsync(id);
         }
 
-        public Task<IReadOnlyList<Appointment>> GetAllByClientId(int? clientId)
-        {
-            return _unitOfWork.AppointmentRepository.ListAsync(x => x.ClientId == clientId);
-        }
-
         public Task UpdateAsync(Appointment item)
         {
             _unitOfWork.AppointmentRepository.UpdateAsync(item);

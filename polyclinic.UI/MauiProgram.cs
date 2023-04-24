@@ -41,7 +41,7 @@ namespace polyclinic.UI
             // Views
 
             // ViewModels
-            services.AddSingleton<AppointmentsViewModel>();
+
         }
     }
 }
