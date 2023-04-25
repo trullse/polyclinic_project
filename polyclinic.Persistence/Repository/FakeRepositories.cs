@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -78,9 +79,10 @@ namespace polyclinic.Persistence.Repository
                         Diagnosis = $"Diagnosis {k++}",
                         ClientId = i,
                         DoctorId = 1,
-                        AppointmentDate = DateTime.Now.AddDays(rand.NextInt64() % 30),
+                        AppointmentDate = DateTime.Now.AddDays(rand.NextInt64() % 60 - 30),
                         TreatmentCost = rand.NextDouble() * 10
                     });
+            _list.Sort((y, x) => DateTime.Compare((DateTime)x.AppointmentDate, (DateTime)y.AppointmentDate));
         }
 
         public Task AddAsync(Appointment entity, CancellationToken cancellationToken = default)
