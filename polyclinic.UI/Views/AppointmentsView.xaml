@@ -8,28 +8,35 @@
         <toolkit:EventToCommandBehavior EventName="Loaded"
                                         Command="{Binding UpdateClientsListCommand}"/>
     </ContentPage.Behaviors>
-    <VerticalStackLayout>
-        <Label 
-            Text="Appointments will be here"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Picker
-            ItemsSource="{Binding Clients}"
-            SelectedItem="{Binding SelectedClient}"
-            ItemDisplayBinding="{Binding Name}">
-            <Picker.Behaviors>
-                <toolkit:EventToCommandBehavior EventName="SelectedIndexChanged"
-                                                Command="{Binding UpdateAppointmentsListCommand}"/>
-            </Picker.Behaviors>
-        </Picker>
-        <CollectionView
-            ItemsSource="{Binding Appointments}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Label 
-                        Text="{Binding Diagnosis}"/>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>       
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout
+            Margin="5"
+            Spacing="10">
+            <Label 
+                Text="Choose a client to see the appointments."/>
+            <Picker
+                ItemsSource="{Binding Clients}"
+                SelectedItem="{Binding SelectedClient}"
+                ItemDisplayBinding="{Binding Name}">
+                <Picker.Behaviors>
+                    <toolkit:EventToCommandBehavior EventName="SelectedIndexChanged"
+                                                    Command="{Binding UpdateAppointmentsListCommand}"/>
+                </Picker.Behaviors>
+            </Picker>
+            <CollectionView
+                ItemsSource="{Binding Appointments}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame
+                            Margin="0,0,0,5">
+                            <StackLayout>
+                                <Label Text="{Binding Diagnosis}"/>
+                                <Label Text="{Binding AppointmentDate}"/>
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>       
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
