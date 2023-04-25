@@ -8,11 +8,11 @@ namespace polyclinic.Domain.Entities
 {
     public class Doctor : Entity
     {
-        public string? Name { get; set; }
-        public string? Surname { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
         public string? Patronymic { get; set; }
-        public string? Qualification { get; set; }
-        public string? Specialization { get; set; }
+        public string Qualification { get; set; }
+        public string Specialization { get; set; }
         public Doctor(int id, string name, string surname, string? patronymic, string qualification, string specialization)
         {
             Id = id;
@@ -21,6 +21,16 @@ namespace polyclinic.Domain.Entities
             Patronymic = patronymic;
             Qualification = qualification;
             Specialization = specialization;
+        }
+
+        public Doctor()
+        {
+            Id = -1;
+            Name = string.Empty;
+            Surname = string.Empty;
+            Patronymic = string.Empty;
+            Qualification = string.Empty;
+            Specialization = string.Empty;
         }
     }
 }

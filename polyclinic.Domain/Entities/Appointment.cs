@@ -8,12 +8,12 @@ namespace polyclinic.Domain.Entities
 {
     public class Appointment : Entity
     {
-        public int? ClientId { get; set; }
-        public int? DoctorId { get; set; }
+        public int ClientId { get; set; }
+        public int DoctorId { get; set; }
         public string? Diagnosis { get; set; }
         public double? TreatmentCost { get; set; }
-        public DateTime? AppointmentDate { get; set; }
-        public Appointment(int id, int clientId, int doctorId, string diagnosis, double treatmentCost, DateTime appointmentDate)
+        public DateTime AppointmentDate { get; set; }
+        public Appointment(int id, int clientId, int doctorId, string? diagnosis, double? treatmentCost, DateTime appointmentDate)
         {
             Id = id;
             ClientId = clientId;
@@ -25,6 +25,9 @@ namespace polyclinic.Domain.Entities
 
         public Appointment()
         {
+            ClientId = -1;
+            DoctorId = -1;
+            AppointmentDate = DateTime.MinValue;
         }
     }
 }
