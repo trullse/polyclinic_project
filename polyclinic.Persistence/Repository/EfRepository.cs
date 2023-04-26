@@ -93,7 +93,9 @@ namespace polyclinic.Persistence.Repository
                 query = query.Where(filter);
             }
 
-            return await query.ToListAsync(cancellationToken: cancellationToken);
+            var list = await query.ToListAsync(cancellationToken: cancellationToken);
+            list.Sort();
+            return list;
         }
 
         public Task UpdateAsync(T entity, CancellationToken cancellationToken = default)
