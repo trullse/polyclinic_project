@@ -55,9 +55,11 @@ namespace polyclinic.UI
 
             // Views
             services.AddTransient<AppointmentsView>();
+            services.AddTransient<AppointmentDetailsView>();
 
             // ViewModels
             services.AddSingleton<AppointmentsViewModel>();
+            services.AddTransient<AppointmentDetailsViewModel>();
         }
 
         private static void AddDbContext(MauiAppBuilder builder)
