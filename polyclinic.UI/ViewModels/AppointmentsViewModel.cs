@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using polyclinic.Application.Abstractions;
 using polyclinic.Domain.Entities;
+using polyclinic.UI.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -32,6 +33,8 @@ namespace polyclinic.UI.ViewModels
         async void UpdateClientsList() => await GetClients();
         [RelayCommand]
         async void UpdateAppointmentsList() => await GetAppointments();
+        [RelayCommand]
+        async void ShowAppointmentDetails() => await GotoAppointmentDetailsPage();
 
         public async Task GetClients()
         {
@@ -57,6 +60,11 @@ namespace polyclinic.UI.ViewModels
                     Appointments.Add(appointment);
                 }
             });
+        }
+
+        private async Task GotoAppointmentDetailsPage()
+        {
+            await Shell.Current.GoToAsync(nameof(AppointmentDetailsView));
         }
     }
 }
