@@ -35,6 +35,8 @@ namespace polyclinic.UI.ViewModels
         async void UpdateAppointmentsList() => await GetAppointments();
         [RelayCommand]
         async void ShowAppointmentDetails(Appointment appointment) => await GotoAppointmentDetailsPage(appointment);
+        [RelayCommand]
+        async void AddClient() => await GotoAddClientPage();
 
         public async Task GetClients()
         {
@@ -69,6 +71,11 @@ namespace polyclinic.UI.ViewModels
                { "Appointment", appointment }
             };
             await Shell.Current.GoToAsync(nameof(AppointmentDetailsView), parameters);
+        }
+
+        private async Task GotoAddClientPage()
+        {
+            await Shell.Current.GoToAsync(nameof(AddClientView));
         }
     }
 }

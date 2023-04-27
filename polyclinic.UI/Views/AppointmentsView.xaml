@@ -15,6 +15,11 @@
             <converters:DateToColorValueConverter x:Key="ColorConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            IconImageSource="add.png"
+            Command="{Binding AddClientCommand}"/>
+    </ContentPage.ToolbarItems>
     <ScrollView>
         <VerticalStackLayout
             Margin="5"
