@@ -40,7 +40,8 @@
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type models:AppointmentsViewModel} },
-                                    Path=ShowAppointmentDetailsCommand}"/>
+                                    Path=ShowAppointmentDetailsCommand}"
+                                    CommandParameter="{Binding}"/>
                             </Frame.GestureRecognizers>
                             <StackLayout>
                                 <Label Text="{Binding Diagnosis}"/>
