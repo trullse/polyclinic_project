@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,22 +13,5 @@ namespace polyclinic.Domain.Entities
         public string Surname { get; set; }
         public string? Patronymic { get; set; }
         public DateTime BirthDate { get; set; }
-        public Client(int id, string name, string surname, string? patronymic, DateTime birthDate)
-        {
-            Id = id;
-            Name = name;
-            Surname = surname;
-            Patronymic = patronymic;
-            BirthDate = birthDate;
-        }
-
-        public Client()
-        {
-            Id = -1;
-            Name = string.Empty;
-            Surname = string.Empty;
-            Patronymic = string.Empty;
-            BirthDate = DateTime.MinValue;
-        }
     }
 }
