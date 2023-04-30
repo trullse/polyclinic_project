@@ -53,15 +53,22 @@ namespace polyclinic.UI.ViewModels
 
         public async Task GetAppointments()
         {
-            var appointments = await _appointmentsService.GetAllByClientId(SelectedClient.Id);
-            await MainThread.InvokeOnMainThreadAsync(() =>
+            if (SelectedClient != null)
             {
-                Appointments.Clear();
-                foreach (var appointment in appointments)
+                var appointments = await _appointmentsService.GetAllByClientId(SelectedClient.Id);
+                await MainThread.InvokeOnMainThreadAsync(() =>
                 {
-                    Appointments.Add(appointment);
-                }
-            });
+                    Appointments.Clear();
+                    foreach (var appointment in appointments)
+                    {
+                        Appointments.Add(appointment);
+                    }
+                });
+            }
+            else
+            {
+                await MainThread.InvokeOnMainThreadAsync(() => Appointments.Clear());
+            }
         }
 
         private async Task GotoAppointmentDetailsPage(Appointment appointment)

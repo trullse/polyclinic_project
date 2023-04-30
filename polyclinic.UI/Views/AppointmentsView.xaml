@@ -9,6 +9,8 @@
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded"
                                         Command="{Binding UpdateClientsListCommand}"/>
+        <toolkit:EventToCommandBehavior EventName="NavigatedTo"
+                                        Command="{Binding UpdateClientsListCommand}"/>
     </ContentPage.Behaviors>
     <ContentPage.Resources>
         <ResourceDictionary>
