@@ -28,6 +28,8 @@ namespace polyclinic.UI.ViewModels
 
         [ObservableProperty]
         Client selectedClient;
+        [ObservableProperty]
+        bool addAppointmentVisible = false;
 
         [RelayCommand]
         async void UpdateClientsList() => await GetClients();
@@ -37,6 +39,8 @@ namespace polyclinic.UI.ViewModels
         async void ShowAppointmentDetails(Appointment appointment) => await GotoAppointmentDetailsPage(appointment);
         [RelayCommand]
         async void AddClient() => await GotoAddClientPage();
+        [RelayCommand]
+        async void AddAppointment(Client client) => await GotoAddAppointmentPage(client);
 
         public async Task GetClients()
         {
@@ -63,11 +67,14 @@ namespace polyclinic.UI.ViewModels
                     {
                         Appointments.Add(appointment);
                     }
+                    if (!AddAppointmentVisible)
+                        AddAppointmentVisible = true;
                 });
             }
             else
             {
                 await MainThread.InvokeOnMainThreadAsync(() => Appointments.Clear());
+                AddAppointmentVisible = false;
             }
         }
 
@@ -83,6 +90,15 @@ namespace polyclinic.UI.ViewModels
         private async Task GotoAddClientPage()
         {
             await Shell.Current.GoToAsync(nameof(AddClientView));
+        }
+
+        private async Task GotoAddAppointmentPage(Client client)
+        {
+            IDictionary<string, object> parameters = new Dictionary<string, object>()
+            {
+               { "CurrentClient", client }
+            };
+            await Shell.Current.GoToAsync(nameof(AddAppointmentView), parameters);
         }
     }
 }

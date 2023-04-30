@@ -28,21 +28,32 @@
             Spacing="10">
             <Label 
                 Text="Choose a client to see the appointments."/>
-            <Picker
-                ItemsSource="{Binding Clients}"
-                SelectedItem="{Binding SelectedClient}"
-                ItemDisplayBinding="{Binding Name}">
-                <Picker.Behaviors>
-                    <toolkit:EventToCommandBehavior EventName="SelectedIndexChanged"
+            <Grid
+                ColumnDefinitions="*,*">
+                <Picker
+                    ItemsSource="{Binding Clients}"
+                    SelectedItem="{Binding SelectedClient}"
+                    ItemDisplayBinding="{Binding Name}"
+                    Grid.Column="0">
+                    <Picker.Behaviors>
+                        <toolkit:EventToCommandBehavior EventName="SelectedIndexChanged"
                                                     Command="{Binding UpdateAppointmentsListCommand}"/>
-                </Picker.Behaviors>
-            </Picker>
+                    </Picker.Behaviors>
+                </Picker>
+                <Button
+                    Text="Add appointment"
+                    IsVisible="{Binding AddAppointmentVisible}"
+                    Command="{Binding AddAppointmentCommand}"
+                    CommandParameter="{Binding SelectedClient}"
+                    HorizontalOptions="End"
+                    Grid.Column="1"/>
+            </Grid>
             <CollectionView
                 ItemsSource="{Binding Appointments}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame
-                            Margin="0,0,0,5"
+                            Margin="0,2.5"
                             BackgroundColor="{Binding AppointmentDate, Converter={StaticResource ColorConverter}}">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer
@@ -57,7 +68,7 @@
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-            </CollectionView>       
+            </CollectionView>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
