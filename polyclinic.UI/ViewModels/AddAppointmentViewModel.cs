@@ -87,16 +87,19 @@ namespace polyclinic.UI.ViewModels
             {
                 filtredDoctors = doctors.Where(doctor => regex.IsMatch(doctor.Surname));
             }
-            await MainThread.InvokeOnMainThreadAsync(() =>
+            if (!filtredDoctors.SequenceEqual(Doctors))
             {
-                Doctors.Clear();
-                foreach (var doctor in filtredDoctors)
+                await MainThread.InvokeOnMainThreadAsync(() =>
                 {
-                    Doctors.Add(doctor);
-                }
-                if (!DoctorsVisible)
-                    DoctorsVisible = true;
-            });
+                    Doctors.Clear();
+                    foreach (var doctor in filtredDoctors)
+                    {
+                        Doctors.Add(doctor);
+                    }
+                    if (!DoctorsVisible)
+                        DoctorsVisible = true;
+                });
+            }
         }
 
         public async Task SearchDoctorAsync()
