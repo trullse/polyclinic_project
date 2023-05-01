@@ -115,6 +115,21 @@ namespace polyclinic.UI
                         TreatmentCost = rand.NextDouble() * 10
                     });
             await unitOfWork.SaveAllAsync();
+            //Add doctors
+            IReadOnlyList<Doctor> doctors = new List<Doctor>()
+            {
+                new Doctor()
+                {
+                    Name="Tattiana", Surname="Semchenko", Specialization="Pediatr", Qualification="First"
+                },
+                new Doctor()
+                {
+                    Name="Mike", Surname="Smith", Specialization="Surgeon", Qualification="Second"
+                }
+            };
+            foreach (var doctor in doctors)
+                await unitOfWork.DoctorRepository.AddAsync(doctor);
+            await unitOfWork.SaveAllAsync();
         }
     }
 }

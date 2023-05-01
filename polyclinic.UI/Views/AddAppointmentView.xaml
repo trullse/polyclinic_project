@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:polyclinic.UI.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="polyclinic.UI.Views.AddAppointmentView"
              Title="AddAppointmentView">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                        Command="{Binding ShowDoctorsCommand}"/>
+    </ContentPage.Behaviors>
     <VerticalStackLayout
         Margin="5"
         Spacing="10">
@@ -12,5 +18,53 @@
             HorizontalOptions="Center" />
         <Label
             Text="{Binding CurrentClient.Name, StringFormat='Client: {0}'}"/>
+        <Label Text="Choose the doctor:"/>
+        <Entry
+            Text="{Binding DoctorSearchText}"
+            ReturnCommand="{Binding ShowDoctorsCommand}">
+            <Entry.Behaviors>
+                <toolkit:EventToCommandBehavior EventName="TextChanged"
+                                                Command="{Binding ShowDoctorsCommand}"/>
+            </Entry.Behaviors>
+        </Entry>
+        <Frame
+            Margin="0,2.5"
+            IsVisible="{Binding SelectedDoctorVisible}"
+            BackgroundColor="Green">
+            <StackLayout>
+                <Label Text="{Binding SelectedDoctor.Name}"/>
+                <Label Text="{Binding SelectedDoctor.Specialization}"/>
+            </StackLayout>
+        </Frame>
+        <CollectionView
+                ItemsSource="{Binding Doctors}"
+                IsVisible="{Binding DoctorsVisible}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame
+                            Margin="0,2.5">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type models:AddAppointmentViewModel} },
+                                    Path=SelectDoctorCommand}"
+                                    CommandParameter="{Binding}"/>
+                        </Frame.GestureRecognizers>
+                        <StackLayout>
+                            <Label Text="{Binding Name}"/>
+                            <Label Text="{Binding Specialization}"/>
+                        </StackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Label Text="Appointment date:"/>
+        <DatePicker Format="dd/mm/yyyy"
+                    Date="{Binding AppointmentDate}"/>
+        <Label Text="{Binding Warning}"
+               IsVisible="{Binding WarningVisible}"
+               TextColor="Red"/>
+        <Button Text="Add appointment"
+                HorizontalOptions="Center"
+                Command="{Binding AddAppointmentCommand}"/>
     </VerticalStackLayout>
 </ContentPage>
