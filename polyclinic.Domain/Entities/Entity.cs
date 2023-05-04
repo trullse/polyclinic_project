@@ -9,7 +9,7 @@ namespace polyclinic.Domain.Entities
 {
     public class Entity
     {
-        [PrimaryKey, AutoIncrement, Indexed]
+        //[PrimaryKey, AutoIncrement, Indexed]
         public int Id { get; set; }
     }
 }

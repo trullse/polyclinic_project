@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:models="clr-namespace:polyclinic.UI.ViewModels"
+             xmlns:viewmodels="clr-namespace:polyclinic.UI.ViewModels"
+             xmlns:models="clr-namespace:polyclinic.Domain.Entities;assembly=polyclinic.Domain"
              xmlns:converters="clr-namespace:polyclinic.UI.ValueConverters"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:DataType="viewmodels:AppointmentsViewModel"
              x:Class="polyclinic.UI.Views.AppointmentsView"
              Title="AppointmentsView">
     <ContentPage.Behaviors>
@@ -51,18 +53,18 @@
             <CollectionView
                 ItemsSource="{Binding Appointments}">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="models:Appointment">
                         <Frame
                             Margin="0,2.5"
                             BackgroundColor="{Binding AppointmentDate, Converter={StaticResource ColorConverter}}">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type models:AppointmentsViewModel} },
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:AppointmentsViewModel} },
                                     Path=ShowAppointmentDetailsCommand}"
                                     CommandParameter="{Binding}"/>
                             </Frame.GestureRecognizers>
                             <StackLayout>
-                                <Label Text="{Binding Diagnosis}"/>
+                                <Label Text="{Binding Doctor.Surname}"/>
                                 <Label Text="{Binding AppointmentDate}"/>
                             </StackLayout>
                         </Frame>

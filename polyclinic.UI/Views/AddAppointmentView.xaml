@@ -32,7 +32,7 @@
             IsVisible="{Binding SelectedDoctorVisible}"
             BackgroundColor="Green">
             <StackLayout>
-                <Label Text="{Binding SelectedDoctor.Name}"/>
+                <Label Text="{Binding SelectedDoctor.Surname}"/>
                 <Label Text="{Binding SelectedDoctor.Specialization}"/>
             </StackLayout>
         </Frame>

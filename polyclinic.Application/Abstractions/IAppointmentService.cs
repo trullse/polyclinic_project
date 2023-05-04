@@ -10,5 +10,7 @@ namespace polyclinic.Application.Abstractions
     public interface IAppointmentService : IBaseService<Appointment>
     {
         Task<IReadOnlyList<Appointment>> GetAllByClientId(int? clientId);
+
+        Task GetConnections();
     }
 }

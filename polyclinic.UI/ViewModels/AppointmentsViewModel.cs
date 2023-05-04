@@ -59,6 +59,7 @@ namespace polyclinic.UI.ViewModels
         {
             if (SelectedClient != null)
             {
+                await _appointmentsService.GetConnections();
                 var appointments = await _appointmentsService.GetAllByClientId(SelectedClient.Id);
                 await MainThread.InvokeOnMainThreadAsync(() =>
                 {

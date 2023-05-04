@@ -48,5 +48,12 @@ namespace polyclinic.Application.Services
             _unitOfWork.AppointmentRepository.UpdateAsync(item);
             return _unitOfWork.SaveAllAsync();
         }
+
+        public Task GetConnections()
+        {
+            _unitOfWork.DoctorRepository.ListAllAsync();
+            _unitOfWork.ClientRepository.ListAllAsync();
+            return Task.CompletedTask;
+        }
     }
 }

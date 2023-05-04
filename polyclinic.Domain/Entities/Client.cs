@@ -13,5 +13,6 @@ namespace polyclinic.Domain.Entities
         public string Surname { get; set; }
         public string? Patronymic { get; set; }
         public DateTime BirthDate { get; set; }
+        public List<Appointment>? Appointments { get; set; }
     }
 }

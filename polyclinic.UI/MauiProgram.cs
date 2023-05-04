@@ -36,7 +36,7 @@ namespace polyclinic.UI
 
             AddDbContext(builder);
             SetupServices(builder.Services);
-            SeedData(builder.Services);
+            //SeedData(builder.Services);
 
 #if DEBUG
 		builder.Logging.AddDebug();
@@ -100,21 +100,6 @@ namespace polyclinic.UI
             foreach (var client in clients)
                 await unitOfWork.ClientRepository.AddAsync(client);
             await unitOfWork.SaveAllAsync();
-            //Add trainees
-            Random rand = new Random();
-            int k = 1;
-            foreach (var client in clients)
-                for (int j = 0; j < 10; j++)
-                    await unitOfWork.AppointmentRepository.AddAsync(new Appointment()
-                    {
-                        Id = k,
-                        Diagnosis = $"Diagnosis {k++}",
-                        ClientId = client.Id,
-                        DoctorId = 1,
-                        AppointmentDate = DateTime.Now.AddDays(rand.NextInt64() % 60 - 30),
-                        TreatmentCost = rand.NextDouble() * 10
-                    });
-            await unitOfWork.SaveAllAsync();
             //Add doctors
             IReadOnlyList<Doctor> doctors = new List<Doctor>()
             {
@@ -129,6 +114,21 @@ namespace polyclinic.UI
             };
             foreach (var doctor in doctors)
                 await unitOfWork.DoctorRepository.AddAsync(doctor);
+            await unitOfWork.SaveAllAsync();
+            //Add appointments
+            Random rand = new Random();
+            int k = 1;
+            foreach (var client in clients)
+                for (int j = 0; j < 10; j++)
+                    await unitOfWork.AppointmentRepository.AddAsync(new Appointment()
+                    {
+                        Id = k,
+                        Diagnosis = $"Diagnosis {k++}",
+                        ClientId = client.Id,
+                        DoctorId = 1,
+                        AppointmentDate = DateTime.Now.AddDays(rand.NextInt64() % 60 - 30),
+                        TreatmentCost = rand.NextDouble() * 10
+                    });
             await unitOfWork.SaveAllAsync();
         }
     }
