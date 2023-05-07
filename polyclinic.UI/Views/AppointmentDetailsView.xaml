@@ -1,26 +1,43 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodels="clr-namespace:polyclinic.UI.ViewModels"
-             x:Class="polyclinic.UI.Views.AppointmentDetailsView"
-             Title="AppointmentDetailsView"
-             x:DataType="viewmodels:AppointmentDetailsViewModel">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem
-            IconImageSource="edit.png"
-            Command="{Binding EditAppointmentCommand}"/>
-    </ContentPage.ToolbarItems>
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:viewmodels="clr-namespace:polyclinic.UI.ViewModels"
+			 x:Class="polyclinic.UI.Views.AppointmentDetailsView"
+			 Title="AppointmentDetailsView"
+			 x:DataType="viewmodels:AppointmentDetailsViewModel">
+	<ContentPage.ToolbarItems>
+		<ToolbarItem
+			IconImageSource="edit.png"
+			Command="{Binding EditAppointmentCommand}"/>
+	</ContentPage.ToolbarItems>
     <VerticalStackLayout
-        Margin="5">
+		Margin="5"
+		Spacing="10">
         <Label
-            Text="{Binding Appointment.ClientId, StringFormat='Client ID: {0}'}"/>
+            Text="Client:"/>
+        <Frame>
+            <VerticalStackLayout Spacing="10">
+                <Label
+					Text="{Binding Appointment.Client.FullName}"/>
+                <Label
+					Text="{Binding Appointment.Client.BirthDate}"/>
+            </VerticalStackLayout>
+        </Frame>
         <Label
-            Text="{Binding Appointment.DoctorId, StringFormat='Doctor ID: {0}'}"/>
-        <Label
-            Text="{Binding Appointment.AppointmentDate, StringFormat='Appointment date: {0}'}"/>
-        <Label
-            Text="{Binding Appointment.TreatmentCost, StringFormat='Treatment cost: {0}'}"/>
-        <Label
-            Text="{Binding Appointment.Diagnosis, StringFormat='Diagnosis: {0}'}"/>
-    </VerticalStackLayout>
+            Text="Doctor:"/>
+        <Frame>
+            <VerticalStackLayout Spacing="10">
+                <Label
+					Text="{Binding Appointment.Doctor.FullName}"/>
+                <Label
+					Text="{Binding Appointment.Doctor.Specialization}"/>
+            </VerticalStackLayout>
+		</Frame>
+		<Label
+			Text="{Binding Appointment.AppointmentDate, StringFormat='Appointment date: {0}'}"/>
+		<Label
+			Text="{Binding Appointment.TreatmentCost, StringFormat='Treatment cost: {0}'}"/>
+		<Label
+			Text="{Binding Appointment.Diagnosis, StringFormat='Diagnosis: {0}'}"/>
+	</VerticalStackLayout>
 </ContentPage>
