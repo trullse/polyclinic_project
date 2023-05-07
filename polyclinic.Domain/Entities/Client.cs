@@ -14,5 +14,9 @@ namespace polyclinic.Domain.Entities
         public string? Patronymic { get; set; }
         public DateTime BirthDate { get; set; }
         public List<Appointment>? Appointments { get; set; }
+        public string FullName
+        {
+            get => string.Join(" ", Surname, Name, Patronymic);
+        }
     }
 }

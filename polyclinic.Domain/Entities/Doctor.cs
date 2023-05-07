@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,5 +15,9 @@ namespace polyclinic.Domain.Entities
         public string Qualification { get; set; }
         public string Specialization { get; set; }
         public List<Appointment>? Appointments { get; set; }
+        public string FullName
+        {
+            get => string.Join(" ", Surname, Name, Patronymic);
+        }
     }
 }
