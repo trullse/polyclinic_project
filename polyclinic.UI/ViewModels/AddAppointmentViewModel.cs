@@ -27,7 +27,7 @@ namespace polyclinic.UI.ViewModels
         [ObservableProperty]
         bool doctorsVisible;
         [ObservableProperty]
-        string doctorSearchText;
+        string doctorSearchText = "";
         [ObservableProperty]
         bool selectedDoctorVisible;
         [ObservableProperty]
@@ -104,10 +104,7 @@ namespace polyclinic.UI.ViewModels
 
         public async Task SearchDoctorAsync()
         {
-            if (DoctorSearchText != null && DoctorSearchText.Length >= 1)
-            {
-                await GetDoctorsAsync(new Regex(DoctorSearchText));
-            }
+            await GetDoctorsAsync(new Regex(DoctorSearchText));
         }
 
         public async Task SelectDoctorAsync(Doctor doctor)
