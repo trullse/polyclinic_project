@@ -21,7 +21,7 @@ namespace polyclinic.UI.ViewModels
         {
             IDictionary<string, object> parameters = new Dictionary<string, object>()
             {
-               { "CurrentClient", Appointment }
+               { "Appointment", Appointment }
             };
             await Shell.Current.GoToAsync(nameof(EditAppointmentView), parameters);
         }

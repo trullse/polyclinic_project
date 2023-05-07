@@ -1,12 +1,48 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewmodels="clr-namespace:polyclinic.UI.ViewModels"
              x:Class="polyclinic.UI.Views.EditAppointmentView"
+             x:DataType="viewmodels:EditAppointmentViewModel"
              Title="EditAppointmentView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Here you'll be able to edit the appointment"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                        Command="{Binding GetInfoCommand}"/>
+        <toolkit:EventToCommandBehavior EventName="NavigatedTo"
+                                        Command="{Binding GetInfoCommand}"/>
+    </ContentPage.Behaviors>
+    <VerticalStackLayout
+        Margin="5"
+        Spacing="10">
+        <Label
+            Text="Client:"/>
+        <Picker
+            ItemsSource="{Binding Clients}"
+            SelectedItem="{Binding SelectedClient}"
+            ItemDisplayBinding="{Binding FullName}"/>
+        <Label
+            Text="Doctor:"/>
+        <Picker
+            ItemsSource="{Binding Doctors}"
+            SelectedItem="{Binding SelectedDoctor}"
+            ItemDisplayBinding="{Binding FullName}"/>
+        <Label
+            Text="Appointment date:"/>
+        <DatePicker
+            Format="dd/mm/yyyy"
+            Date="{Binding SelectedDate}"/>
+        <Label
+            Text="Diagnosis:"/>
+        <Entry
+            Text="{Binding SelectedDiagnosis}"/>
+        <Label
+            Text="Treatment cost:"/>
+        <Entry
+            Keyboard="Numeric"
+            Text="{Binding SelectedTreatmentCost}"/>
+        <Button
+            Text="Apply changes"
+            Command="{Binding ApplyChangesCommand}"/>
     </VerticalStackLayout>
 </ContentPage>

@@ -85,7 +85,7 @@ namespace polyclinic.UI.ViewModels
             IEnumerable<Doctor> filtredDoctors = doctors;
             if (regex != null)
             {
-                filtredDoctors = doctors.Where(doctor => regex.IsMatch(doctor.Surname));
+                filtredDoctors = doctors.Where(doctor => regex.IsMatch(doctor.FullName));
             }
             if (!filtredDoctors.SequenceEqual(Doctors))
             {

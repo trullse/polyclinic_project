@@ -29,8 +29,8 @@
             Margin="0,2.5"
             IsVisible="{Binding SelectedDoctorVisible}"
             BackgroundColor="Green">
-            <StackLayout>
-                <Label Text="{Binding SelectedDoctor.Surname}"/>
+            <StackLayout Spacing="10">
+                <Label Text="{Binding SelectedDoctor.FullName}"/>
                 <Label Text="{Binding SelectedDoctor.Specialization}"/>
             </StackLayout>
         </Frame>
@@ -48,7 +48,7 @@
                                     CommandParameter="{Binding}"/>
                         </Frame.GestureRecognizers>
                         <StackLayout>
-                            <Label Text="{Binding Surname}"/>
+                            <Label Text="{Binding FullName}"/>
                             <Label Text="{Binding Specialization}"/>
                         </StackLayout>
                     </Frame>
