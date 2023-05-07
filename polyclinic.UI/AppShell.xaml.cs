@@ -10,6 +10,7 @@ namespace polyclinic.UI
             Routing.RegisterRoute(nameof(AppointmentDetailsView), typeof(AppointmentDetailsView));
             Routing.RegisterRoute(nameof(AddClientView), typeof(AddClientView));
             Routing.RegisterRoute(nameof(AddAppointmentView), typeof(AddAppointmentView));
+            Routing.RegisterRoute(nameof(EditAppointmentView), typeof(EditAppointmentView));
         }
     }
 }

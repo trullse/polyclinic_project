@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:polyclinic.UI.ViewModels"
              x:Class="polyclinic.UI.Views.AppointmentDetailsView"
-             Title="AppointmentDetailsView">
+             Title="AppointmentDetailsView"
+             x:DataType="viewmodels:AppointmentDetailsViewModel">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            IconImageSource="edit.png"
+            Command="{Binding EditAppointmentCommand}"/>
+    </ContentPage.ToolbarItems>
     <VerticalStackLayout
         Margin="5">
         <Label
