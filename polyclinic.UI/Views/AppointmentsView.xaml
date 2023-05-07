@@ -26,7 +26,7 @@
     </ContentPage.ToolbarItems>
     <ScrollView>
         <VerticalStackLayout
-            Margin="5"
+            Margin="10"
             Spacing="10">
             <Label 
                 Text="Choose a client to see the appointments."/>
@@ -35,7 +35,7 @@
                 <Picker
                     ItemsSource="{Binding Clients}"
                     SelectedItem="{Binding SelectedClient}"
-                    ItemDisplayBinding="{Binding Name}"
+                    ItemDisplayBinding="{Binding FullName}"
                     Grid.Column="0">
                     <Picker.Behaviors>
                         <toolkit:EventToCommandBehavior EventName="SelectedIndexChanged"
@@ -63,8 +63,9 @@
                                     Path=ShowAppointmentDetailsCommand}"
                                     CommandParameter="{Binding}"/>
                             </Frame.GestureRecognizers>
-                            <StackLayout>
-                                <Label Text="{Binding Doctor.Surname}"/>
+                            <StackLayout Spacing="10">
+                                <Label Text="{Binding Doctor.FullName}"/>
+                                <Label Text="{Binding Doctor.Specialization}"/>
                                 <Label Text="{Binding AppointmentDate}"/>
                             </StackLayout>
                         </Frame>
