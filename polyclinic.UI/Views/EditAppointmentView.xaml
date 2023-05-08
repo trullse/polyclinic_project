@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewmodels="clr-namespace:polyclinic.UI.ViewModels"
+             xmlns:converters="clr-namespace:polyclinic.UI.ValueConverters"
              x:Class="polyclinic.UI.Views.EditAppointmentView"
              x:DataType="viewmodels:EditAppointmentViewModel"
              Title="EditAppointmentView">
@@ -12,37 +13,62 @@
         <toolkit:EventToCommandBehavior EventName="NavigatedTo"
                                         Command="{Binding GetInfoCommand}"/>
     </ContentPage.Behaviors>
-    <VerticalStackLayout
-        Margin="5"
-        Spacing="10">
-        <Label
-            Text="Client:"/>
-        <Picker
-            ItemsSource="{Binding Clients}"
-            SelectedItem="{Binding SelectedClient}"
-            ItemDisplayBinding="{Binding FullName}"/>
-        <Label
-            Text="Doctor:"/>
-        <Picker
-            ItemsSource="{Binding Doctors}"
-            SelectedItem="{Binding SelectedDoctor}"
-            ItemDisplayBinding="{Binding FullName}"/>
-        <Label
-            Text="Appointment date:"/>
-        <DatePicker
-            Format="dd/mm/yyyy"
-            Date="{Binding SelectedDate}"/>
-        <Label
-            Text="Diagnosis:"/>
-        <Entry
-            Text="{Binding SelectedDiagnosis}"/>
-        <Label
-            Text="Treatment cost:"/>
-        <Entry
-            Keyboard="Numeric"
-            Text="{Binding SelectedTreatmentCost}"/>
-        <Button
-            Text="Apply changes"
-            Command="{Binding ApplyChangesCommand}"/>
-    </VerticalStackLayout>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:IdToImageValueConverter x:Key="ImageConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView>
+        <VerticalStackLayout
+            Margin="5"
+            Spacing="10">
+            <Frame
+                IsClippedToBounds="True"
+                HorizontalOptions="Center"
+                HeightRequest="100"
+                WidthRequest="100"
+                CornerRadius="50">
+                <Image
+                    HeightRequest="100"
+                    WidthRequest="100"
+                    Aspect="AspectFill"
+                    Margin="-50"
+                    BindingContext="{Binding Appointment.Id}" Source="{Binding Converter={StaticResource ImageConverter}}"
+                />
+            </Frame>
+            <Button
+                Text="Select image"
+                HorizontalOptions="Center"
+                Command="{Binding GetImageCommand}"/>
+            <Label
+                Text="Client:"/>
+            <Picker
+                ItemsSource="{Binding Clients}"
+                SelectedItem="{Binding SelectedClient}"
+                ItemDisplayBinding="{Binding FullName}"/>
+            <Label
+                Text="Doctor:"/>
+            <Picker
+                ItemsSource="{Binding Doctors}"
+                SelectedItem="{Binding SelectedDoctor}"
+                ItemDisplayBinding="{Binding FullName}"/>
+            <Label
+                Text="Appointment date:"/>
+            <DatePicker
+                Format="dd/mm/yyyy"
+                Date="{Binding SelectedDate}"/>
+            <Label
+                Text="Diagnosis:"/>
+            <Entry
+                Text="{Binding SelectedDiagnosis}"/>
+            <Label
+                Text="Treatment cost:"/>
+            <Entry
+                Keyboard="Numeric"
+                Text="{Binding SelectedTreatmentCost}"/>
+            <Button
+                Text="Apply changes"
+                Command="{Binding ApplyChangesCommand}"/>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

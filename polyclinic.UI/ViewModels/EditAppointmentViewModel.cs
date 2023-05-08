@@ -42,6 +42,8 @@ namespace polyclinic.UI.ViewModels
         async void GetInfo() => await SetInfoAsync();
         [RelayCommand]
         async void ApplyChanges() => await ApplyChangesAsync();
+        [RelayCommand]
+        async void GetImage() => await SetImageAsync();
 
         public EditAppointmentViewModel(IAppointmentService appointmentService, IClientService clientService, IDoctorService doctorService)
         {
@@ -99,6 +101,24 @@ namespace polyclinic.UI.ViewModels
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
+            }
+        }
+
+        public async Task SetImageAsync()
+        {
+            FileResult result = await FilePicker.PickAsync(new PickOptions
+            {
+                FileTypes = FilePickerFileType.Images
+            });
+            if (result != null)
+            {
+                var stream = await result.OpenReadAsync();
+                string imagesPath = Path.Combine(FileSystem.AppDataDirectory, @"/AppointmentImages/");
+                if (!Path.Exists(imagesPath))
+                    Directory.CreateDirectory(imagesPath);
+                string imagePath = Path.Combine(imagesPath, $"appointment{Appointment.Id}.png");
+                using FileStream fstream = new FileStream(imagePath, FileMode.OpenOrCreate);
+                await stream.CopyToAsync(fstream);
             }
         }
     }

@@ -17,6 +17,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:DateToColorValueConverter x:Key="ColorConverter"/>
+            <converters:IdToImageValueConverter x:Key="ImageConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
@@ -63,11 +64,19 @@
                                     Path=ShowAppointmentDetailsCommand}"
                                     CommandParameter="{Binding}"/>
                             </Frame.GestureRecognizers>
-                            <StackLayout Spacing="10">
-                                <Label Text="{Binding Doctor.FullName}"/>
-                                <Label Text="{Binding Doctor.Specialization}"/>
-                                <Label Text="{Binding AppointmentDate}"/>
-                            </StackLayout>
+                            <HorizontalStackLayout
+                                Spacing="10">
+                                <Image
+                                        HeightRequest="80"
+                                        WidthRequest="80"
+                                        Aspect="AspectFill"
+                                        BindingContext="{Binding Id}" Source="{Binding Converter={StaticResource ImageConverter}}"/>
+                                <StackLayout Spacing="10">
+                                    <Label Text="{Binding Doctor.FullName}"/>
+                                    <Label Text="{Binding Doctor.Specialization}"/>
+                                    <Label Text="{Binding AppointmentDate}"/>
+                                </StackLayout>
+                            </HorizontalStackLayout>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
