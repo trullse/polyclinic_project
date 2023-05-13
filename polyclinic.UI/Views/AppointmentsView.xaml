@@ -14,7 +14,7 @@
 	</ContentPage.Behaviors>
 	<ContentPage.Resources>
 		<ResourceDictionary>
-			<converters:DateToColorValueConverter x:Key="ColorConverter"/>
+			<converters:StatusToColorValueConverter x:Key="ColorConverter"/>
 			<converters:ComparisonConverter x:Key="ComparisonConverter"/>
 		</ResourceDictionary>
 	</ContentPage.Resources>
@@ -80,22 +80,24 @@
 				<CollectionView.ItemTemplate>
 					<DataTemplate x:DataType="models:Appointment">
 						<Frame
-							Margin="0,2.5"
-							BackgroundColor="{Binding AppointmentDate, Converter={StaticResource ColorConverter}}">
+							Margin="0,2.5">
 							<Frame.GestureRecognizers>
 								<TapGestureRecognizer
 									Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:AppointmentsViewModel} },
 									Path=ShowAppointmentDetailsCommand}"
 									CommandParameter="{Binding}"/>
 							</Frame.GestureRecognizers>
-							<Grid ColumnDefinitions="*,*">
-								<StackLayout Spacing="10"
-											 Grid.Column="0">
+							<Grid ColumnDefinitions="8,10,*,*">
+                                <RoundRectangle Grid.Column="0"
+                                                CornerRadius="3"
+                                                Fill="{Binding AppointmentStatus, Converter={StaticResource ColorConverter}}"/>
+                                <StackLayout Spacing="10"
+											 Grid.Column="2">
 									<Label Text="{Binding Client.FullName, StringFormat='Client: {0}'}"/>
 									<Label Text="{Binding AppointmentDate}"/>
 								</StackLayout>
 								<StackLayout Spacing="10"
-											 Grid.Column="1">
+											 Grid.Column="3">
 									<Label Text="{Binding Doctor.FullName, StringFormat='Doctor: {0}'}"/>
 									<Label Text="{Binding Doctor.Specialization, StringFormat='Specialization: {0}'}"/>
 								</StackLayout>

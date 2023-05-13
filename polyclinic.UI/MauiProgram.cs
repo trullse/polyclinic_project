@@ -36,7 +36,7 @@ namespace polyclinic.UI
 
             AddDbContext(builder);
             SetupServices(builder.Services);
-            SeedData(builder.Services);
+            //SeedData(builder.Services);
 
 #if DEBUG
 		builder.Logging.AddDebug();
