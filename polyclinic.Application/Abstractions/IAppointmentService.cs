@@ -11,6 +11,8 @@ namespace polyclinic.Application.Abstractions
     {
         Task<IReadOnlyList<Appointment>> GetAllByClientId(int? clientId);
 
+        Task<IReadOnlyList<Appointment>> GetOnDateAsync(DateTime date, Appointment.Status? status = null);
+
         Task GetConnections();
     }
 }

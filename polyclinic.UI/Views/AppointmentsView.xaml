@@ -1,77 +1,109 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodels="clr-namespace:polyclinic.UI.ViewModels"
-             xmlns:models="clr-namespace:polyclinic.Domain.Entities;assembly=polyclinic.Domain"
-             xmlns:converters="clr-namespace:polyclinic.UI.ValueConverters"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:DataType="viewmodels:AppointmentsViewModel"
-             x:Class="polyclinic.UI.Views.AppointmentsView"
-             Title="AppointmentsView">
-    <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior EventName="Loaded"
-                                        Command="{Binding UpdateClientsListCommand}"/>
-        <toolkit:EventToCommandBehavior EventName="NavigatedTo"
-                                        Command="{Binding UpdateClientsListCommand}"/>
-    </ContentPage.Behaviors>
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <converters:DateToColorValueConverter x:Key="ColorConverter"/>
-        </ResourceDictionary>
-    </ContentPage.Resources>
-    <ContentPage.ToolbarItems>
-        <ToolbarItem
-            IconImageSource="add.png"
-            Command="{Binding AddClientCommand}"/>
-    </ContentPage.ToolbarItems>
-    <ScrollView>
-        <VerticalStackLayout
-            Margin="10"
-            Spacing="10">
-            <Label 
-                Text="Choose a client to see the appointments."/>
-            <Grid
-                ColumnDefinitions="*,*">
-                <Picker
-                    ItemsSource="{Binding Clients}"
-                    SelectedItem="{Binding SelectedClient}"
-                    ItemDisplayBinding="{Binding FullName}"
-                    Grid.Column="0">
-                    <Picker.Behaviors>
-                        <toolkit:EventToCommandBehavior EventName="SelectedIndexChanged"
-                                                    Command="{Binding UpdateAppointmentsListCommand}"/>
-                    </Picker.Behaviors>
-                </Picker>
-                <Button
-                    Text="Add appointment"
-                    IsVisible="{Binding AddAppointmentVisible}"
-                    Command="{Binding AddAppointmentCommand}"
-                    CommandParameter="{Binding SelectedClient}"
-                    HorizontalOptions="End"
-                    Grid.Column="1"/>
-            </Grid>
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:viewmodels="clr-namespace:polyclinic.UI.ViewModels"
+			 xmlns:models="clr-namespace:polyclinic.Domain.Entities;assembly=polyclinic.Domain"
+			 xmlns:converters="clr-namespace:polyclinic.UI.ValueConverters"
+			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+			 x:DataType="viewmodels:AppointmentsViewModel"
+			 x:Class="polyclinic.UI.Views.AppointmentsView"
+			 Title="AppointmentsView">
+	<ContentPage.Behaviors>
+		<toolkit:EventToCommandBehavior EventName="NavigatedTo"
+										Command="{Binding UpdateAppointmentsListCommand}"/>
+	</ContentPage.Behaviors>
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<converters:DateToColorValueConverter x:Key="ColorConverter"/>
+			<converters:ComparisonConverter x:Key="ComparisonConverter"/>
+		</ResourceDictionary>
+	</ContentPage.Resources>
+	<ContentPage.ToolbarItems>
+		<ToolbarItem
+			IconImageSource="add.png"
+			Command="{Binding AddAppointmentCommand}"/>
+	</ContentPage.ToolbarItems>
+	<ScrollView>
+		<VerticalStackLayout
+			Margin="10"
+			Spacing="10">
+            
+            <!-- Filter choice -->
+
+            <HorizontalStackLayout>
+                <RadioButton Content="All" 
+							 IsChecked="{Binding Path=SelectedFilter, Converter={StaticResource ComparisonConverter}, 
+					ConverterParameter={x:Static viewmodels:AppointmentsViewModel+Filter.All}}">
+                    <RadioButton.Behaviors>
+                        <toolkit:EventToCommandBehavior EventName="CheckedChanged"
+														Command="{Binding UpdateAppointmentsListCommand}"/>
+                    </RadioButton.Behaviors>
+                </RadioButton>
+                <RadioButton Content="Upcoming" 
+							 IsChecked="{Binding Path=SelectedFilter, Converter={StaticResource ComparisonConverter}, 
+					ConverterParameter={x:Static viewmodels:AppointmentsViewModel+Filter.Upcoming}}">
+                    <RadioButton.Behaviors>
+                        <toolkit:EventToCommandBehavior EventName="CheckedChanged"
+														Command="{Binding UpdateAppointmentsListCommand}"/>
+                    </RadioButton.Behaviors>
+                </RadioButton>
+                <RadioButton Content="Approved" 
+							 IsChecked="{Binding Path=SelectedFilter, Converter={StaticResource ComparisonConverter}, 
+					ConverterParameter={x:Static viewmodels:AppointmentsViewModel+Filter.Approved}}">
+                    <RadioButton.Behaviors>
+                        <toolkit:EventToCommandBehavior EventName="CheckedChanged"
+														Command="{Binding UpdateAppointmentsListCommand}"/>
+                    </RadioButton.Behaviors>
+                </RadioButton>
+                <RadioButton Content="Payment required" 
+							 IsChecked="{Binding Path=SelectedFilter, Converter={StaticResource ComparisonConverter}, 
+					ConverterParameter={x:Static viewmodels:AppointmentsViewModel+Filter.Payment}}">
+                    <RadioButton.Behaviors>
+                        <toolkit:EventToCommandBehavior EventName="CheckedChanged"
+														Command="{Binding UpdateAppointmentsListCommand}"/>
+                    </RadioButton.Behaviors>
+                </RadioButton>
+                <RadioButton Content="History" 
+							 IsChecked="{Binding Path=SelectedFilter, Converter={StaticResource ComparisonConverter}, 
+					ConverterParameter={x:Static viewmodels:AppointmentsViewModel+Filter.History}}">
+                    <RadioButton.Behaviors>
+                        <toolkit:EventToCommandBehavior EventName="CheckedChanged"
+														Command="{Binding UpdateAppointmentsListCommand}"/>
+                    </RadioButton.Behaviors>
+                </RadioButton>
+            </HorizontalStackLayout>
+
+            <!-- Appointments -->
+            
             <CollectionView
-                ItemsSource="{Binding Appointments}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:Appointment">
-                        <Frame
-                            Margin="0,2.5"
-                            BackgroundColor="{Binding AppointmentDate, Converter={StaticResource ColorConverter}}">
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:AppointmentsViewModel} },
-                                    Path=ShowAppointmentDetailsCommand}"
-                                    CommandParameter="{Binding}"/>
-                            </Frame.GestureRecognizers>
-                            <StackLayout Spacing="10">
-                                <Label Text="{Binding Doctor.FullName}"/>
-                                <Label Text="{Binding Doctor.Specialization}"/>
-                                <Label Text="{Binding AppointmentDate}"/>
-                            </StackLayout>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </VerticalStackLayout>
-    </ScrollView>
+				ItemsSource="{Binding Appointments}">
+				<CollectionView.ItemTemplate>
+					<DataTemplate x:DataType="models:Appointment">
+						<Frame
+							Margin="0,2.5"
+							BackgroundColor="{Binding AppointmentDate, Converter={StaticResource ColorConverter}}">
+							<Frame.GestureRecognizers>
+								<TapGestureRecognizer
+									Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:AppointmentsViewModel} },
+									Path=ShowAppointmentDetailsCommand}"
+									CommandParameter="{Binding}"/>
+							</Frame.GestureRecognizers>
+							<Grid ColumnDefinitions="*,*">
+								<StackLayout Spacing="10"
+											 Grid.Column="0">
+									<Label Text="{Binding Client.FullName, StringFormat='Client: {0}'}"/>
+									<Label Text="{Binding AppointmentDate}"/>
+								</StackLayout>
+								<StackLayout Spacing="10"
+											 Grid.Column="1">
+									<Label Text="{Binding Doctor.FullName, StringFormat='Doctor: {0}'}"/>
+									<Label Text="{Binding Doctor.Specialization, StringFormat='Specialization: {0}'}"/>
+								</StackLayout>
+							</Grid>
+						</Frame>
+					</DataTemplate>
+				</CollectionView.ItemTemplate>
+			</CollectionView>
+		</VerticalStackLayout>
+	</ScrollView>
 </ContentPage>

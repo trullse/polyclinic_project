@@ -36,7 +36,7 @@ namespace polyclinic.UI
 
             AddDbContext(builder);
             SetupServices(builder.Services);
-            //SeedData(builder.Services);
+            SeedData(builder.Services);
 
 #if DEBUG
 		builder.Logging.AddDebug();
@@ -128,8 +128,9 @@ namespace polyclinic.UI
                         Diagnosis = $"Diagnosis {k++}",
                         ClientId = client.Id,
                         DoctorId = 1,
-                        AppointmentDate = DateTime.Now.AddDays(rand.NextInt64() % 60 - 30),
-                        TreatmentCost = rand.NextDouble() * 10
+                        AppointmentDate = DateTime.Now,//.AddDays(rand.NextInt64() % 60 - 30),
+                        TreatmentCost = rand.NextDouble() * 10,
+                        AppointmentStatus = (Appointment.Status)(rand.NextInt64() % 5)
                     });
             await unitOfWork.SaveAllAsync();
         }

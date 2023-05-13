@@ -43,6 +43,14 @@ namespace polyclinic.Application.Services
             return _unitOfWork.AppointmentRepository.ListAsync(x => x.ClientId == clientId);
         }
 
+        public Task<IReadOnlyList<Appointment>> GetOnDateAsync(DateTime date, Appointment.Status? status = null)
+        {
+            if (status != null)
+                return _unitOfWork.AppointmentRepository.ListAsync(x => x.AppointmentDate.Date == date.Date && x.AppointmentStatus == status);
+            else
+                return _unitOfWork.AppointmentRepository.ListAsync(x => x.AppointmentDate.Date == date.Date);
+        }
+
         public Task UpdateAsync(Appointment item)
         {
             _unitOfWork.AppointmentRepository.UpdateAsync(item);
