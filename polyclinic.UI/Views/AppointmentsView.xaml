@@ -16,7 +16,10 @@
 		<ResourceDictionary>
 			<converters:StatusToColorValueConverter x:Key="ColorConverter"/>
 			<converters:ComparisonConverter x:Key="ComparisonConverter"/>
-		</ResourceDictionary>
+            <converters:TimeValueConverter x:Key="TimeConverter"/>
+            <converters:DateValueConverter x:Key="DateConverter"/>
+            <converters:StatusValueConverter x:Key="StatusConverter"/>
+        </ResourceDictionary>
 	</ContentPage.Resources>
 	<ContentPage.ToolbarItems>
 		<ToolbarItem
@@ -87,17 +90,22 @@
 									Path=ShowAppointmentDetailsCommand}"
 									CommandParameter="{Binding}"/>
 							</Frame.GestureRecognizers>
-							<Grid ColumnDefinitions="8,10,*,*">
-                                <RoundRectangle Grid.Column="0"
+							<Grid ColumnDefinitions="Auto,10,8,10,*,*">
+                                <StackLayout Spacing="10"
+											 Grid.Column="0">
+                                    <Label Text="{Binding AppointmentDate, Converter={StaticResource TimeConverter}}"/>
+                                    <Label Text="{Binding AppointmentDate, Converter={StaticResource DateConverter}}"/>
+                                </StackLayout>
+                                <RoundRectangle Grid.Column="2"
                                                 CornerRadius="3"
                                                 Fill="{Binding AppointmentStatus, Converter={StaticResource ColorConverter}}"/>
                                 <StackLayout Spacing="10"
-											 Grid.Column="2">
-									<Label Text="{Binding Client.FullName, StringFormat='Client: {0}'}"/>
-									<Label Text="{Binding AppointmentDate}"/>
-								</StackLayout>
+											 Grid.Column="4">
+                                    <Label Text="{Binding Client.FullName, StringFormat='Client: {0}'}"/>
+                                    <Label Text="{Binding AppointmentStatus, Converter={StaticResource StatusConverter}, StringFormat='Status: {0}'}"/>
+                                </StackLayout>
 								<StackLayout Spacing="10"
-											 Grid.Column="3">
+											 Grid.Column="5">
 									<Label Text="{Binding Doctor.FullName, StringFormat='Doctor: {0}'}"/>
 									<Label Text="{Binding Doctor.Specialization, StringFormat='Specialization: {0}'}"/>
 								</StackLayout>
