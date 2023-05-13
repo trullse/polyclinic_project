@@ -18,9 +18,9 @@
         <Frame>
             <VerticalStackLayout Spacing="10">
                 <Label
-					Text="{Binding Appointment.Client.FullName}"/>
+					Text="{Binding SelectedAppointment.Client.FullName}"/>
                 <Label
-					Text="{Binding Appointment.Client.BirthDate}"/>
+					Text="{Binding SelectedAppointment.Client.BirthDate}"/>
             </VerticalStackLayout>
         </Frame>
         <Label
@@ -28,16 +28,16 @@
         <Frame>
             <VerticalStackLayout Spacing="10">
                 <Label
-					Text="{Binding Appointment.Doctor.FullName}"/>
+					Text="{Binding SelectedAppointment.Doctor.FullName}"/>
                 <Label
-					Text="{Binding Appointment.Doctor.Specialization}"/>
+					Text="{Binding SelectedAppointment.Doctor.Specialization}"/>
             </VerticalStackLayout>
 		</Frame>
 		<Label
-			Text="{Binding Appointment.AppointmentDate, StringFormat='Appointment date: {0}'}"/>
+			Text="{Binding SelectedAppointment.AppointmentDate, StringFormat='Appointment date: {0}'}"/>
 		<Label
-			Text="{Binding Appointment.TreatmentCost, StringFormat='Treatment cost: {0}'}"/>
+			Text="{Binding SelectedAppointment.TreatmentCost, StringFormat='Treatment cost: {0}'}"/>
 		<Label
-			Text="{Binding Appointment.Diagnosis, StringFormat='Diagnosis: {0}'}"/>
+			Text="{Binding SelectedAppointment.Diagnosis, StringFormat='Diagnosis: {0}'}"/>
 	</VerticalStackLayout>
 </ContentPage>

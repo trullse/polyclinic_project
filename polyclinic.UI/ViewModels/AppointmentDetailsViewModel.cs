@@ -10,18 +10,18 @@ using System.Threading.Tasks;
 
 namespace polyclinic.UI.ViewModels
 {
-    [QueryProperty(nameof(Appointment), "Appointment")]
+    [QueryProperty(nameof(SelectedAppointment), "Appointment")]
     public partial class AppointmentDetailsViewModel : ObservableObject
     {
         [ObservableProperty]
-        Appointment appointment;
+        Appointment selectedAppointment;
 
         [RelayCommand]
         public async Task EditAppointment()
         {
             IDictionary<string, object> parameters = new Dictionary<string, object>()
             {
-               { "Appointment", Appointment }
+               { "Appointment", SelectedAppointment }
             };
             await Shell.Current.GoToAsync(nameof(EditAppointmentView), parameters);
         }
