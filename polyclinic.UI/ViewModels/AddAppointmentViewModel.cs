@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using polyclinic.Application.Abstractions;
 using polyclinic.Domain.Entities;
+using polyclinic.UI.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -40,7 +41,7 @@ namespace polyclinic.UI.ViewModels
         public ObservableCollection<Doctor> Doctors { get; set; } = new();
 
         [RelayCommand]
-        async void AddAppointment() => await AddAppointmentAsync();
+        async void ContinueAdding() => await ContinueAddingAsync();
         [RelayCommand]
         async void ShowDoctors() => await SearchDoctorAsync();
         [RelayCommand]
@@ -56,7 +57,7 @@ namespace polyclinic.UI.ViewModels
             warningVisible = false;
         }
 
-        public async Task AddAppointmentAsync()
+        public async Task ContinueAddingAsync()
         {
             if (SelectedDoctor == null)
             {
@@ -68,15 +69,24 @@ namespace polyclinic.UI.ViewModels
                 ShowWarning("Incorrect date");
                 return;
             }
-            await _appointmentService.AddAsync(new Appointment()
+            /*await _appointmentService.AddAsync(new Appointment()
             {
                 ClientId = CurrentClient.Id,
                 DoctorId = SelectedDoctor.Id,
                 AppointmentDate = this.AppointmentDate
-            });
-            var toast = Toast.Make("Appointment successfully added!");
-            await toast.Show();
-            await Shell.Current.GoToAsync("..");
+            });*/
+            //var toast = Toast.Make("Appointment successfully added!");
+            //await toast.Show();
+            //await Shell.Current.GoToAsync("..");
+            if (CurrentClient == null)
+            {
+                IDictionary<string, object> parameters = new Dictionary<string, object>()
+                {
+                   { "AddDoctor", SelectedDoctor },
+                   { "AddDate", AppointmentDate }
+                };
+                await Shell.Current.GoToAsync(nameof(ClientSelectView), parameters);
+            }
         }
 
         public async Task GetDoctorsAsync(Regex regex = null)

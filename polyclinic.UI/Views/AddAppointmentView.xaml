@@ -63,6 +63,6 @@
                TextColor="Red"/>
         <Button Text="Add appointment"
                 HorizontalOptions="Center"
-                Command="{Binding AddAppointmentCommand}"/>
+                Command="{Binding ContinueAddingCommand}"/>
     </VerticalStackLayout>
 </ContentPage>
