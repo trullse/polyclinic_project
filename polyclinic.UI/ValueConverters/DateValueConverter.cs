@@ -15,7 +15,7 @@ namespace polyclinic.UI.ValueConverters
             if (date.Date == DateTime.Now.Date)
                 return string.Empty;
             if (date.Year == DateTime.Now.Year)
-                return string.Format("{0}.{1}", date.Day, date.Month);
+                return date.ToString("dd.MM");
             else
                 return date.ToShortDateString();
         }
