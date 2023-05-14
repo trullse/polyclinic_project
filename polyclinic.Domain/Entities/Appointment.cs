@@ -31,7 +31,7 @@ namespace polyclinic.Domain.Entities
 
         public int CompareTo(Appointment? other)
         {
-            return -DateTime.Compare(AppointmentDate, other.AppointmentDate);
+            return DateTime.Compare(AppointmentDate, other.AppointmentDate);
         }
     }
 }

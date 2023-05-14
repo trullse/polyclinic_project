@@ -109,7 +109,7 @@ namespace polyclinic.UI
             {
                 new Doctor()
                 {
-                    Name="Tattiana", Surname="Semchenko", Specialization="Pediatr", Qualification="First"
+                    Name="Tattiana", Surname="Semchenko", Specialization="Terapevt", Qualification="First"
                 },
                 new Doctor()
                 {
@@ -130,7 +130,7 @@ namespace polyclinic.UI
                         Diagnosis = $"Diagnosis {k++}",
                         ClientId = client.Id,
                         DoctorId = 1,
-                        AppointmentDate = DateTime.Now,//.AddDays(rand.NextInt64() % 60 - 30),
+                        AppointmentDate = DateTime.Now.AddMinutes(rand.NextInt64() % 1800),//.AddDays(rand.NextInt64() % 60 - 30),
                         TreatmentCost = rand.NextDouble() * 10,
                         AppointmentStatus = (Appointment.Status)(rand.NextInt64() % 5)
                     });
