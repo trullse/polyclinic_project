@@ -11,6 +11,10 @@
     <ContentPage.Resources>
         <converters:DateValueConverter x:Key="DateConverter"/>
     </ContentPage.Resources>
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                        Command="{Binding ShowClientsCommand}"/>
+    </ContentPage.Behaviors>
     <Grid
         RowDefinitions="*,Auto">
         <VerticalStackLayout

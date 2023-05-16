@@ -73,7 +73,7 @@ namespace polyclinic.UI.ViewModels
 			var clients = await _clientService.GetAllAsync();
 			IEnumerable<Client> filtredClients = clients;
 
-			if (searchText != string.Empty)
+			if (!string.IsNullOrEmpty(searchText))
 			{
 				Regex regex = new Regex(searchText);
 				filtredClients = clients.Where(client => regex.IsMatch(client.FullName));
