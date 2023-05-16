@@ -87,6 +87,10 @@ namespace polyclinic.UI.ViewModels
                 };
                 await Shell.Current.GoToAsync(nameof(ClientSelectView), parameters);
             }
+            else
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public async Task GetDoctorsAsync(Regex regex = null)
