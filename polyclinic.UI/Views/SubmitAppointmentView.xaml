@@ -43,7 +43,8 @@
 		    Spacing="10"
             Grid.Row="1">
             <Button
-                Text="Submit"/>
+                Text="Submit"
+                Command="{Binding SubmitCommand}"/>
         </VerticalStackLayout>
     </Grid>
 </ContentPage>
