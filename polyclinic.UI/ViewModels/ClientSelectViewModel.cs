@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using polyclinic.Application.Abstractions;
 using polyclinic.Application.Services;
 using polyclinic.Domain.Entities;
+using polyclinic.UI.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -105,7 +106,7 @@ namespace polyclinic.UI.ViewModels
 				   { "AddDate", AddDate },
 				   { "AddClient", SelectedClient }
 				};
-			//await Shell.Current.GoToAsync(nameof(ClientSelectView), parameters);
+			await Shell.Current.GoToAsync(nameof(SubmitAppointmentView), parameters);
 		}
 
 		private void ShowWarning(string message)
