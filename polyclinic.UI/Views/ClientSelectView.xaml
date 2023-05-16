@@ -52,7 +52,8 @@
                                         Path=SelectClientCommand}"
                                         CommandParameter="{Binding}"/>
                             </Frame.GestureRecognizers>
-                            <StackLayout>
+                            <StackLayout
+                                Spacing="10">
                                 <Label Text="{Binding FullName}"/>
                                 <Label Text="{Binding BirthDate, Converter={StaticResource DateConverter}}"/>
                             </StackLayout>
