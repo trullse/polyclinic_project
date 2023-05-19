@@ -28,6 +28,7 @@ namespace polyclinic.Application.Services
                 throw new Exceptions.TalonException("Talon is null");
             if (talon.IsBooked)
                 throw new Exceptions.TalonException("Talon already booked!");
+            item.AppointmentDate = item.AppointmentDate.Date;
             item.AppointmentDate = item.AppointmentDate.Add(talon.AppointmentTime.ToTimeSpan());
             _unitOfWork.AppointmentRepository.AddAsync(item);
             talon.IsBooked = true;
