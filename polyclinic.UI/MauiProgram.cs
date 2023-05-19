@@ -52,6 +52,7 @@ namespace polyclinic.UI
             services.AddSingleton<IAppointmentService, AppointmentService>();
             services.AddSingleton<IClientService, ClientService>();
             services.AddSingleton<IDoctorService, DoctorService>();
+            services.AddSingleton<IShiftService, ShiftService>();
 
             // Views
             services.AddTransient<AppointmentsView>();
@@ -89,6 +90,8 @@ namespace polyclinic.UI
         {
             using var provider = services.BuildServiceProvider();
             var unitOfWork = provider.GetService<IUnitOfWork>();
+            var appointmentService = provider.GetService<IAppointmentService>();
+            var shiftService = provider.GetService<IShiftService>();
             await unitOfWork.RemoveDatbaseAsync();
             await unitOfWork.CreateDatabaseAsync();
             // Add clients
@@ -121,21 +124,54 @@ namespace polyclinic.UI
             foreach (var doctor in doctors)
                 await unitOfWork.DoctorRepository.AddAsync(doctor);
             await unitOfWork.SaveAllAsync();
+            //Add shifts
+            IReadOnlyList<Shift> shifts = new List<Shift>()
+            {
+                new Shift()
+                {
+                    DoctorId = 1,
+                    Date = DateOnly.FromDateTime(DateTime.Today),
+                    Type = Shift.ShiftType.First
+                },
+                new Shift()
+                {
+                    DoctorId = 1,
+                    Date = DateOnly.FromDateTime(DateTime.Today.AddDays(1)),
+                    Type = Shift.ShiftType.Second
+                },
+                new Shift()
+                {
+                    DoctorId = 2,
+                    Date = DateOnly.FromDateTime(DateTime.Today),
+                    Type = Shift.ShiftType.Second
+                },
+                new Shift()
+                {
+                    DoctorId = 2,
+                    Date = DateOnly.FromDateTime(DateTime.Today.AddDays(1)),
+                    Type = Shift.ShiftType.First
+                }
+            };
+            foreach (var shift in shifts)
+                await shiftService.AddAsync(shift);
+            await unitOfWork.SaveAllAsync();
+            //Add talons
+
             //Add appointments
             Random rand = new Random();
             int k = 1;
             foreach (var client in clients)
-                for (int j = 0; j < 10; j++)
-                    await unitOfWork.AppointmentRepository.AddAsync(new Appointment()
+                for (int j = 0; j < 3; j++)
+                    await appointmentService.AddWithTalonAsync(new Appointment()
                     {
                         Id = k,
                         Diagnosis = $"Diagnosis {k++}",
                         ClientId = client.Id,
                         DoctorId = 1,
-                        AppointmentDate = DateTime.Now.AddMinutes(rand.NextInt64() % 1800),//.AddDays(rand.NextInt64() % 60 - 30),
+                        AppointmentDate = DateTime.Today,//Now.AddMinutes(rand.NextInt64() % 1800),//.AddDays(rand.NextInt64() % 60 - 30),
                         TreatmentCost = rand.NextDouble() * 10,
                         AppointmentStatus = (Appointment.Status)(rand.NextInt64() % 5)
-                    });
+                    }, shiftService.GetByDoctorAndDayAsync(1, DateOnly.FromDateTime(DateTime.Today)).Result.Talons[k]);
             await unitOfWork.SaveAllAsync();
         }
     }

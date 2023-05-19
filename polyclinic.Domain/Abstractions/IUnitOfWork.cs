@@ -12,6 +12,8 @@ namespace polyclinic.Domain.Abstractions
         IRepository<Appointment> AppointmentRepository { get; }
         IRepository<Client> ClientRepository { get; }
         IRepository<Doctor> DoctorRepository { get; }
+        IRepository<Shift> ShiftRepository { get; }
+        IRepository<Talon> TalonRepository { get; }
         public Task RemoveDatbaseAsync();
         public Task CreateDatabaseAsync();
         public Task SaveAllAsync();

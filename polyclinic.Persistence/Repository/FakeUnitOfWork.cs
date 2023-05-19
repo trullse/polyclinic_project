@@ -27,6 +27,10 @@ namespace polyclinic.Persistence.Repository
 
         public IRepository<Doctor> DoctorRepository => throw new NotImplementedException();
 
+        public IRepository<Shift> ShiftRepository => throw new NotImplementedException();
+
+        public IRepository<Talon> TalonRepository => throw new NotImplementedException();
+
         public Task CreateDatabaseAsync()
         {
             //throw new NotImplementedException();

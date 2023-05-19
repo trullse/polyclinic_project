@@ -22,6 +22,19 @@ namespace polyclinic.Application.Services
             return _unitOfWork.SaveAllAsync();
         }
 
+        public Task AddWithTalonAsync(Appointment item, Talon talon)
+        {
+            if (talon == null)
+                throw new Exceptions.TalonException("Talon is null");
+            if (talon.IsBooked)
+                throw new Exceptions.TalonException("Talon already booked!");
+            item.AppointmentDate = item.AppointmentDate.Add(talon.AppointmentTime.ToTimeSpan());
+            _unitOfWork.AppointmentRepository.AddAsync(item);
+            talon.IsBooked = true;
+            _unitOfWork.TalonRepository.UpdateAsync(talon);
+            return _unitOfWork.SaveAllAsync();
+        }
+
         public Task DeleteAsync(Appointment item)
         {
             _unitOfWork.AppointmentRepository.DeleteAsync(item);

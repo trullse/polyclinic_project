@@ -9,6 +9,8 @@ namespace polyclinic.Application.Abstractions
 {
     public interface IAppointmentService : IBaseService<Appointment>
     {
+        Task AddWithTalonAsync(Appointment item, Talon talon);
+
         Task<IReadOnlyList<Appointment>> GetAllByClientId(int? clientId);
 
         Task<IReadOnlyList<Appointment>> GetOnDateAsync(DateTime date, Appointment.Status? status = null);
