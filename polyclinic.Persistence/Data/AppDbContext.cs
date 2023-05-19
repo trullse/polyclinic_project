@@ -32,7 +32,7 @@ namespace polyclinic.Persistence.Data
 
             modelBuilder.Entity<Appointment>().HasOne(a => a.Doctor).WithMany(d => d.Appointments).HasForeignKey(a => a.DoctorId);
             modelBuilder.Entity<Appointment>().HasOne(a => a.Client).WithMany(c => c.Appointments).HasForeignKey(a => a.ClientId);
-            //modelBuilder.Entity<Shift>().HasMany(s => s.Talons).WithOne(t => t.ShiftSource).HasForeignKey(t => t.ShiftId);
+            modelBuilder.Entity<Shift>().HasMany(s => s.Talons).WithOne(t => t.ShiftSource).HasForeignKey(t => t.ShiftId);
             //modelBuilder.Entity<Talon>().HasOne(t => t.ShiftSource).WithMany(s => s.Talons).HasForeignKey(t => t.ShiftId);
 
             modelBuilder.Entity<Client>().Property(c => c.Id).ValueGeneratedOnAdd();

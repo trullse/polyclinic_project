@@ -16,6 +16,7 @@ namespace polyclinic.UI.ViewModels
 {
 	[QueryProperty(nameof(AddDoctor), "AddDoctor")]
 	[QueryProperty(nameof(AddDate), "AddDate")]
+	[QueryProperty(nameof(AddTalon), "AddTalon")]
 	public partial class ClientSelectViewModel : ObservableObject
 	{
 		private readonly IClientService _clientService;
@@ -26,6 +27,7 @@ namespace polyclinic.UI.ViewModels
 
 		public Doctor AddDoctor { get; set; }
 		public DateTime AddDate { get; set; }
+		public Talon AddTalon { get; set; }
 
         // Warning
 
@@ -104,6 +106,7 @@ namespace polyclinic.UI.ViewModels
 				{
 				   { "AddDoctor", AddDoctor },
 				   { "AddDate", AddDate },
+				   { "AddTalon", AddTalon },
 				   { "AddClient", SelectedClient }
 				};
 			await Shell.Current.GoToAsync(nameof(SubmitAppointmentView), parameters);

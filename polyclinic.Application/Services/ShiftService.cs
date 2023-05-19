@@ -65,7 +65,7 @@ namespace polyclinic.Application.Services
 
         public async Task<Shift?> GetByDoctorAndDayAsync(int doctorId, DateOnly date)
         {
-            var list = await _unitOfWork.ShiftRepository.ListAsync(s => s.DoctorId == doctorId && s.Date == date);
+            var list = await _unitOfWork.ShiftRepository.ListAsync(s => s.DoctorId == doctorId && s.Date == date, CancellationToken.None, x => x.Talons);
             if (list.Count == 0)
                 return null;
             return list.FirstOrDefault();
