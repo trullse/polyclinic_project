@@ -20,6 +20,8 @@ namespace polyclinic.Application.Services
         {
             await _unitOfWork.ShiftRepository.AddAsync(item);
             await _unitOfWork.SaveAllAsync();
+
+            // talons autofill
             item = await GetByDoctorAndDayAsync(item.DoctorId, item.Date);
             List<Talon> talons = new List<Talon>();
             if (item.Type == Shift.ShiftType.First)
