@@ -7,7 +7,7 @@
              x:DataType="viewmodels:SubmitAppointmentViewModel"
              Title="Submit the appointment">
     <ContentPage.Resources>
-        <converters:DateValueConverter x:Key="DateConverter"/>
+        <converters:DateOnlyConverter x:Key="DateConverter"/>
     </ContentPage.Resources>
     <Grid
         RowDefinitions="*,Auto">
@@ -36,7 +36,9 @@
                 </VerticalStackLayout>
             </Frame>
             <Label
-			    Text="{Binding AddDate, StringFormat='Appointment date: {0}'}"/>
+			    Text="{Binding AddDate, Converter={StaticResource DateConverter}, StringFormat='Appointment date: {0}'}"/>
+            <Label
+			    Text="{Binding AddTalon.AppointmentTime, StringFormat='Appointment time: {0}'}"/>
         </VerticalStackLayout>
         <VerticalStackLayout
             Margin="10"
