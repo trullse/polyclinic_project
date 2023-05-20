@@ -39,6 +39,8 @@ namespace polyclinic.UI.ViewModels
 		[ObservableProperty]
 		Talon selectedTalon;
 		[ObservableProperty]
+		bool selectedTalonVisible;
+		[ObservableProperty]
 		string warning;
 		[ObservableProperty]
 		bool warningVisible;
@@ -55,6 +57,8 @@ namespace polyclinic.UI.ViewModels
 		async void SelectDoctor(Doctor doctor) => await SelectDoctorAsync(doctor);
 		[RelayCommand]
 		async void ShowTalons() => await GetFreeTalonsAsync();
+		[RelayCommand]
+		async void SelectTalon(Talon talon) => await SelectTalonAsync(talon);
 
 		public AddAppointmentViewModel(IAppointmentService appointmentService, IDoctorService doctorService, IShiftService shiftService)
 		{
@@ -65,6 +69,7 @@ namespace polyclinic.UI.ViewModels
 			AppointmentDate = DateTime.Now;
 			doctorsVisible = false;
 			selectedDoctorVisible = false;
+			selectedTalonVisible = false;
 			talonsVisible = false;
 			warningVisible = false;
 		}
@@ -127,7 +132,12 @@ namespace polyclinic.UI.ViewModels
 
 		public async Task GetFreeTalonsAsync()
 		{
-			await MainThread.InvokeOnMainThreadAsync(() => Talons.Clear());
+			await MainThread.InvokeOnMainThreadAsync(() =>
+			{
+				Talons.Clear();
+				SelectedTalonVisible = false;
+			});
+			SelectedTalon = null;
 			if (SelectedDoctor != null && AppointmentDate.Date >= DateTime.Today.Date)
 			{
 				var shift = await _shiftService.GetByDoctorAndDayAsync(SelectedDoctor.Id, DateOnly.FromDateTime(AppointmentDate));
@@ -166,6 +176,15 @@ namespace polyclinic.UI.ViewModels
 			});
 
 			await GetFreeTalonsAsync();
+		}
+
+		public async Task SelectTalonAsync(Talon talon)
+		{
+			await MainThread.InvokeOnMainThreadAsync(() =>
+			{
+				SelectedTalon = talon;
+				SelectedTalonVisible = true;
+			});
 		}
 
 		private void ShowWarning(string message)

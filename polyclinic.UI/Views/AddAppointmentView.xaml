@@ -7,11 +7,11 @@
 			 x:Class="polyclinic.UI.Views.AddAppointmentView"
 			 x:DataType="viewmodels:AddAppointmentViewModel"
 			 Title="AddAppointmentView">
-	<ContentPage.Behaviors>
-		<toolkit:EventToCommandBehavior EventName="Loaded"
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
 										Command="{Binding ShowDoctorsCommand}"/>
-	</ContentPage.Behaviors>
-	<VerticalStackLayout
+    </ContentPage.Behaviors>
+    <VerticalStackLayout
 		Margin="5"
 		Spacing="10">
 		<Label Text="Choose the doctor:"/>
@@ -54,28 +54,56 @@
 			</CollectionView.ItemTemplate>
 		</CollectionView>
 		<Label Text="Appointment date:"/>
-        <DatePicker Format="dd/mm/yyyy"
+		<DatePicker Format="dd/mm/yyyy"
 					Date="{Binding AppointmentDate}">
-            <DatePicker.Behaviors>
-                <toolkit:EventToCommandBehavior Command="{Binding ShowTalonsCommand}"
-                                                EventName="DateSelected"/>
-            </DatePicker.Behaviors>
-        </DatePicker>
-        <Label Text="Appointment time:"/>
-		<FlexLayout
+			<DatePicker.Behaviors>
+				<toolkit:EventToCommandBehavior Command="{Binding ShowTalonsCommand}"
+												EventName="DateSelected"/>
+			</DatePicker.Behaviors>
+		</DatePicker>
+        <HorizontalStackLayout
+            Spacing="10"
+            HeightRequest="55">
+            <Label Text="Appointment time:"
+                   VerticalOptions="Center"/>
+            <Frame
+				Padding="15"
+				Margin="2"
+                BackgroundColor="Green"
+                IsVisible="{Binding SelectedTalonVisible}">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer
+						Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:AddAppointmentViewModel}},
+						Path=SelectTalonCommand}"
+						CommandParameter="{Binding}"/>
+                </Frame.GestureRecognizers>
+                <Label
+					Text="{Binding SelectedTalon.AppointmentTime}"
+					HorizontalTextAlignment="Center"
+					WidthRequest="50"/>
+            </Frame>
+        </HorizontalStackLayout>
+        <FlexLayout
 			BindableLayout.ItemsSource="{Binding Talons}"
 			AlignItems="Start"
 			Wrap="Wrap">
 			<BindableLayout.ItemTemplate>
 				<DataTemplate x:DataType="models:Talon">
-                    <Frame
+					<Frame
 						Padding="15"
-                        Margin="2">
-                        <Label
+						Margin="2">
+						<Frame.GestureRecognizers>
+							<TapGestureRecognizer
+								Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:AddAppointmentViewModel}},
+								Path=SelectTalonCommand}"
+								CommandParameter="{Binding}"/>
+						</Frame.GestureRecognizers>
+						<Label
 							Text="{Binding AppointmentTime}"
-                            WidthRequest="50"/>
-                    </Frame>
-                </DataTemplate>
+							HorizontalTextAlignment="Center"
+							WidthRequest="50"/>
+					</Frame>
+				</DataTemplate>
 			</BindableLayout.ItemTemplate>
 		</FlexLayout>
 		<Label Text="{Binding Warning}"
