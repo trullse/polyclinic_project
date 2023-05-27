@@ -53,6 +53,7 @@ namespace polyclinic.UI
             services.AddSingleton<IClientService, ClientService>();
             services.AddSingleton<IDoctorService, DoctorService>();
             services.AddSingleton<IShiftService, ShiftService>();
+            services.AddSingleton<IStatisticsService, StatisticsService>();
 
             // Views
             services.AddTransient<AppointmentsView>();

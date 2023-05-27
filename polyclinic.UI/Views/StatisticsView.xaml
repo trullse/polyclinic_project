@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:polyclinic.UI.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="polyclinic.UI.Views.StatisticsView"
+             x:DataType="viewmodels:StatisticsViewModel"
              Title="StatisticsView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Here you'll be able to see statistics"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="NavigatedTo"
+                                        Command="{Binding GetStatisticsCommand}"/>
+    </ContentPage.Behaviors>
+    <VerticalStackLayout
+        Margin="10"
+        Spacing="10">
+        <Label
+            Text="{Binding Date, StringFormat='Today, {0}'}"/>
+        <Label
+            Text="{Binding Appointments_count, StringFormat='Appointments expected: {0}'}"/>
+        <Label
+            Text="{Binding Appointments_over, StringFormat='Appointments over: {0}'}"/>
+        <Label
+            Text="{Binding Current_income, StringFormat='Current income: {0}'}"/>
+
+        <Label
+            Text="{Binding Date, StringFormat='This month, {0}'}"/>
+        <Label
+            Text="{Binding Appointments_over_month, StringFormat='Appointments over: {0}'}"/>
+        <Label
+            Text="{Binding Current_income_month, StringFormat='Current income: {0}'}"/>
     </VerticalStackLayout>
 </ContentPage>
