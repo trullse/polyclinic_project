@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace polyclinic.Application.Services
 {
@@ -36,10 +37,20 @@ namespace polyclinic.Application.Services
             return _unitOfWork.SaveAllAsync();
         }
 
-        public Task DeleteAsync(Appointment item)
+        public async Task DeleteAsync(Appointment item)
         {
-            _unitOfWork.AppointmentRepository.DeleteAsync(item);
-            return _unitOfWork.SaveAllAsync();
+            Shift shift;
+            var list = await _unitOfWork.ShiftRepository.ListAsync(
+                s => s.DoctorId ==item.DoctorId && s.Date == DateOnly.FromDateTime(item.AppointmentDate),
+                CancellationToken.None, 
+                x => x.Talons
+                );
+            shift =  list.FirstOrDefault();
+            var talon = shift.Talons.Where(t => t.AppointmentTime == TimeOnly.FromDateTime(item.AppointmentDate)).FirstOrDefault();
+            talon.IsBooked = false;
+            await _unitOfWork.TalonRepository.UpdateAsync(talon);
+            await _unitOfWork.AppointmentRepository.DeleteAsync(item);
+            await _unitOfWork.SaveAllAsync();
         }
 
         public Task<IReadOnlyList<Appointment>> GetAllAsync()
