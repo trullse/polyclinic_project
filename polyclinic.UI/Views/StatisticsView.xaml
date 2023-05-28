@@ -8,12 +8,13 @@
 			 xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
 			 x:Class="polyclinic.UI.Views.StatisticsView"
 			 x:DataType="viewmodels:StatisticsViewModel"
-			 Title="StatisticsView">
+			 Title="Statistics">
 	<ContentPage.Resources>
 		<ResourceDictionary>
 			<converters:DateOnlyConverter x:Key="DateConverter"/>
 			<converters:MoneyValueConverter x:Key="MoneyConverter"/>
             <converters:DifferenceToArrowConverter x:Key="DiffConverter"/>
+            <converters:MonthConverter x:Key="MonthConverter"/>
         </ResourceDictionary>
 	</ContentPage.Resources>
 	<ContentPage.Behaviors>
@@ -68,7 +69,7 @@
 						Spacing="10"
 						Grid.Row="0">
 						<Label
-							Text="{Binding Date, StringFormat='This month, {0}', Converter={StaticResource DateConverter}}"
+							Text="{Binding Date, StringFormat='This month, {0}', Converter={StaticResource MonthConverter}}"
 							FontSize="Medium"
 							FontAttributes="Bold"/>
 
