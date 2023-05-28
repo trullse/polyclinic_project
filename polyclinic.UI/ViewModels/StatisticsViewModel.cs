@@ -33,13 +33,33 @@ namespace polyclinic.UI.ViewModels
 		double current_income = 0;
 
 		[ObservableProperty]
+		int difference_appointments = 0;
+		[ObservableProperty]
+		double difference_income = 0;
+
+		[ObservableProperty]
 		int appointments_count_month = 0;
 		[ObservableProperty]
 		int appointments_over_month = 0;
 		[ObservableProperty]
 		double current_income_month = 0;
 
-		public ObservableCollection<ISeries> Series { get; set; } = new ObservableCollection<ISeries>();
+        [ObservableProperty]
+        int difference_appointments_month = 0;
+        [ObservableProperty]
+        double difference_income_month = 0;
+
+        public ObservableCollection<ISeries> Series { get; set; } = new ObservableCollection<ISeries>();
+
+        public ObservableCollection<ISeries> SeriesMonth { get; set; } = new ObservableCollection<ISeries>();
+
+        public ObservableCollection<Axis> XAxes { get; set; } = new ObservableCollection<Axis>
+		{
+			new Axis
+			{
+				IsVisible = false
+			}
+		};
 
         public StatisticsViewModel(IStatisticsService statisticsService)
 		{
@@ -54,12 +74,20 @@ namespace polyclinic.UI.ViewModels
 			Appointments_over = (int)day_statistics[1];
 			Current_income = day_statistics[2];
 
-			var month_statistics = await _statisticsService.GetMonthStatistics(Date, true);
+			var day_before_statistics = await _statisticsService.GetDayStatistics(Date.AddDays(-1));
+			Difference_appointments = Appointments_over - (int)day_before_statistics[1];
+			Difference_income = Current_income - (int)day_before_statistics[2];
+
+            var month_statistics = await _statisticsService.GetMonthStatistics(Date);
 			Appointments_count_month = (int)month_statistics[0];
 			Appointments_over_month = (int)month_statistics[1];
 			Current_income_month = month_statistics[2];
 
-			IncomeCells.Clear();
+            var month_before_statistics = await _statisticsService.GetMonthStatistics(Date.AddMonths(-1), true);
+            Difference_appointments_month = Appointments_over_month - (int)month_before_statistics[1];
+            Difference_income_month = Current_income_month - (int)month_before_statistics[2];
+
+            IncomeCells.Clear();
 			IncomeCells_month.Clear();
 			for (int i = -2; i < 0; i++)
 			{
@@ -76,14 +104,34 @@ namespace polyclinic.UI.ViewModels
 
 			Series.Clear();
 			Series.Add(new ColumnSeries<IncomeCell>
+			{
+				Values = IncomeCells,
+				Mapping = (cell, point) =>
+				{
+					point.PrimaryValue = (double)cell.Income;
+					point.SecondaryValue = point.Context.Index;
+				},
+				Fill = new SolidColorPaint(SKColors.MediumPurple),
+				TooltipLabelFormatter = point => $"{point.PrimaryValue:C2}",
+				DataLabelsPaint = new SolidColorPaint(SKColors.MediumPurple),
+				DataLabelsFormatter = (point) => point.Model.Date,
+				DataLabelsPosition = LiveChartsCore.Measure.DataLabelsPosition.Bottom
+            });
+
+            SeriesMonth.Clear();
+            SeriesMonth.Add(new ColumnSeries<IncomeCell>
             {
-                Values = IncomeCells,
+                Values = IncomeCells_month,
                 Mapping = (cell, point) =>
                 {
                     point.PrimaryValue = (double)cell.Income;
-					point.SecondaryValue = point.Context.Index;
+                    point.SecondaryValue = point.Context.Index;
                 },
-				Fill = new SolidColorPaint(SKColors.MediumPurple)
+                Fill = new SolidColorPaint(SKColors.MediumPurple),
+                TooltipLabelFormatter = point => $"{point.PrimaryValue:C2}",
+                DataLabelsPaint = new SolidColorPaint(SKColors.MediumPurple),
+                DataLabelsFormatter = (point) => point.Model.Date,
+                DataLabelsPosition = LiveChartsCore.Measure.DataLabelsPosition.Bottom
             });
         }
 	}
