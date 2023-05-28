@@ -11,6 +11,7 @@ using polyclinic.Persistence.Repository;
 using polyclinic.UI.ViewModels;
 using polyclinic.UI.Views;
 using System.Reflection;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 
 namespace polyclinic.UI
 {
@@ -22,6 +23,7 @@ namespace polyclinic.UI
 
             var builder = MauiApp.CreateBuilder();
             builder
+                .UseSkiaSharp(true)
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
