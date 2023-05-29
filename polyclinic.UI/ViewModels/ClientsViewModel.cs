@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace polyclinic.UI.ViewModels
@@ -22,19 +23,8 @@ namespace polyclinic.UI.ViewModels
 
         public ObservableCollection<Client> Clients { get; set; } = new();
 
-        [RelayCommand]
-        public async void GetClients()
-        {
-            var clients = await _clientService.GetAllAsync();
-            await MainThread.InvokeOnMainThreadAsync(() =>
-            {
-                Clients.Clear();
-                foreach (var client in clients)
-                {
-                    Clients.Add(client);
-                }
-            });
-        }
+        [ObservableProperty]
+        string searchText = "";    
 
         [RelayCommand]
         public async Task ShowClientDetails(Client client)
@@ -46,6 +36,35 @@ namespace polyclinic.UI.ViewModels
         public async Task AddClient()
         {
             await Shell.Current.GoToAsync(nameof(AddClientView));
+        }
+
+        [RelayCommand]
+        public async Task GetClients(string searchText = "")
+        {
+            var clients = await _clientService.GetAllAsync();
+            IEnumerable<Client> filtredClients = clients;
+
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                filtredClients = clients.Where(client => client.FullName.Contains(searchText));
+            }
+            if (!filtredClients.SequenceEqual(Clients))
+            {
+                await MainThread.InvokeOnMainThreadAsync(() =>
+                {
+                    Clients.Clear();
+                    foreach (var doctor in filtredClients)
+                    {
+                        Clients.Add(doctor);
+                    }
+                });
+            }
+        }
+
+        [RelayCommand]
+        public void ClearSearch()
+        {
+            SearchText = string.Empty;
         }
     }
 }

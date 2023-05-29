@@ -1,55 +1,85 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodels="clr-namespace:polyclinic.UI.ViewModels"
-             xmlns:models="clr-namespace:polyclinic.Domain.Entities;assembly=polyclinic.Domain"
-             xmlns:converters="clr-namespace:polyclinic.UI.ValueConverters"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="polyclinic.UI.Views.ClientsView"
-             x:DataType="viewmodels:ClientsViewModel"
-             Title="ClientsView">
-    <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior EventName="NavigatedTo"
-                                        Command="{Binding GetClientsCommand}"/>
-    </ContentPage.Behaviors>
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <converters:DateOnlyConverter x:Key="DateConverter"/>
-        </ResourceDictionary>
-    </ContentPage.Resources>
-    <ContentPage.ToolbarItems>
-        <ToolbarItem
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:viewmodels="clr-namespace:polyclinic.UI.ViewModels"
+			 xmlns:models="clr-namespace:polyclinic.Domain.Entities;assembly=polyclinic.Domain"
+			 xmlns:converters="clr-namespace:polyclinic.UI.ValueConverters"
+			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+			 x:Class="polyclinic.UI.Views.ClientsView"
+			 x:DataType="viewmodels:ClientsViewModel"
+			 Title="ClientsView">
+	<ContentPage.Behaviors>
+		<toolkit:EventToCommandBehavior EventName="NavigatedTo"
+										Command="{Binding GetClientsCommand}"/>
+	</ContentPage.Behaviors>
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<converters:DateOnlyConverter x:Key="DateConverter"/>
+		</ResourceDictionary>
+	</ContentPage.Resources>
+	<ContentPage.ToolbarItems>
+		<ToolbarItem
 			IconImageSource="add.png"
 			Command="{Binding AddClientCommand}"/>
-    </ContentPage.ToolbarItems>
-    <ScrollView>
-        <VerticalStackLayout
-			Margin="10"
-			Spacing="10">
-
-            <!-- Clients -->
-
-            <CollectionView
-				ItemsSource="{Binding Clients}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:Client">
-                        <Frame
-							Margin="0,2.5">
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer
-									Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ClientsViewModel} },
-									Path=ShowClientDetailsCommand}"
-									CommandParameter="{Binding}"/>
-                            </Frame.GestureRecognizers>
-                            <StackLayout Spacing="10"
-										 Grid.Column="0">
-                                <Label Text="{Binding FullName}"/>
-                                <Label Text="{Binding BirthDate, Converter={StaticResource DateConverter}}"/>
-                            </StackLayout>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+	</ContentPage.ToolbarItems>
+	<Grid
+		RowDefinitions="Auto,*">
+		<VerticalStackLayout
+				Margin="10"
+				Spacing="10"
+            Grid.Row="0">
+            <!-- Search -->
+            <Label
+                    Text="Search a client:"/>
+            <Grid
+                    ColumnDefinitions="*,Auto"
+                    ColumnSpacing="10">
+                <Entry
+						Text="{Binding SearchText}"
+						x:Name="entry"
+                        Grid.Column="0">
+                    <Entry.Behaviors>
+                        <toolkit:EventToCommandBehavior EventName="TextChanged"
+                                                        Command="{Binding GetClientsCommand}"
+                                                        CommandParameter="{Binding Source={x:Reference entry}, Path=Text}"/>
+                    </Entry.Behaviors>
+                </Entry>
+                <Button
+                        Text="Clear"
+                        Grid.Column="1"
+						Command="{Binding ClearSearchCommand}"/>
+            </Grid>
         </VerticalStackLayout>
-    </ScrollView>
+		<ScrollView
+            Grid.Row="1">
+            <VerticalStackLayout
+				Margin="10"
+				Spacing="10">
+
+                <!-- Clients -->
+
+				<CollectionView
+					ItemsSource="{Binding Clients}">
+					<CollectionView.ItemTemplate>
+						<DataTemplate x:DataType="models:Client">
+							<Frame
+								Margin="0,2.5">
+								<Frame.GestureRecognizers>
+									<TapGestureRecognizer
+										Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ClientsViewModel} },
+										Path=ShowClientDetailsCommand}"
+										CommandParameter="{Binding}"/>
+								</Frame.GestureRecognizers>
+								<StackLayout Spacing="10"
+											 Grid.Column="0">
+									<Label Text="{Binding FullName}"/>
+									<Label Text="{Binding BirthDate, Converter={StaticResource DateConverter}}"/>
+								</StackLayout>
+							</Frame>
+						</DataTemplate>
+					</CollectionView.ItemTemplate>
+				</CollectionView>
+			</VerticalStackLayout>
+		</ScrollView>
+	</Grid>
 </ContentPage>
