@@ -107,13 +107,13 @@ namespace polyclinic.UI.ViewModels
 			}
 		}
 
-		public async Task GetDoctorsAsync(Regex regex = null)
+		public async Task GetDoctorsAsync(string search = "")
 		{
 			var doctors = await _doctorService.GetAllAsync();
 			IEnumerable<Doctor> filtredDoctors = doctors;
-			if (regex != null)
+			if (search != string.Empty)
 			{
-				filtredDoctors = doctors.Where(doctor => regex.IsMatch(doctor.FullName));
+				filtredDoctors = doctors.Where(doctor => doctor.FullName.Contains(search));
 			}
 			if (!filtredDoctors.SequenceEqual(Doctors))
 			{
@@ -164,7 +164,7 @@ namespace polyclinic.UI.ViewModels
 
 		public async Task SearchDoctorAsync()
 		{
-			await GetDoctorsAsync(new Regex(DoctorSearchText));
+			await GetDoctorsAsync(DoctorSearchText);
 		}
 
 		public async Task SelectDoctorAsync(Doctor doctor)

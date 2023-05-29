@@ -77,8 +77,7 @@ namespace polyclinic.UI.ViewModels
 
 			if (!string.IsNullOrEmpty(searchText))
 			{
-				Regex regex = new Regex(searchText);
-				filtredClients = clients.Where(client => regex.IsMatch(client.FullName));
+				filtredClients = clients.Where(client => client.FullName.Contains(searchText));
 			}
 			if (!filtredClients.SequenceEqual(Clients))
 			{
