@@ -81,11 +81,11 @@ namespace polyclinic.UI.ViewModels
 				ShowWarning("Choose the doctor");
 				return;
 			}
-			if (AppointmentDate.Date < DateTime.Today.Date)
+			/*if (AppointmentDate.Date < DateTime.Today.Date)
 			{
 				ShowWarning("Incorrect date");
 				return;
-			}
+			}*/
 			if (SelectedTalon == null)
 			{
 				ShowWarning("Time is not selected");
@@ -139,7 +139,7 @@ namespace polyclinic.UI.ViewModels
 				SelectedTalonVisible = false;
 			});
 			SelectedTalon = null;
-			if (SelectedDoctor != null && AppointmentDate.Date >= DateTime.Today.Date)
+			if (SelectedDoctor != null /*&& AppointmentDate.Date >= DateTime.Today.Date*/)
 			{
 				var shift = await _shiftService.GetByDoctorAndDayAsync(SelectedDoctor.Id, DateOnly.FromDateTime(AppointmentDate));
 				if (shift != null)

@@ -61,6 +61,14 @@ namespace polyclinic.UI.ViewModels
 			}
 		};
 
+        public ObservableCollection<Axis> YAxes { get; set; } = new ObservableCollection<Axis>
+        {
+            new Axis
+            {
+                MinLimit = 0,
+            }
+        };
+
         public StatisticsViewModel(IStatisticsService statisticsService)
 		{
 			_statisticsService = statisticsService;
@@ -115,7 +123,7 @@ namespace polyclinic.UI.ViewModels
 				TooltipLabelFormatter = point => $"{point.PrimaryValue:C2}",
 				DataLabelsPaint = new SolidColorPaint(SKColors.MediumPurple),
 				DataLabelsFormatter = (point) => point.Model.Date,
-				DataLabelsPosition = LiveChartsCore.Measure.DataLabelsPosition.Bottom
+				DataLabelsPosition = LiveChartsCore.Measure.DataLabelsPosition.Top
             });
 
             SeriesMonth.Clear();
@@ -131,7 +139,7 @@ namespace polyclinic.UI.ViewModels
                 TooltipLabelFormatter = point => $"{point.PrimaryValue:C2}",
                 DataLabelsPaint = new SolidColorPaint(SKColors.MediumPurple),
                 DataLabelsFormatter = (point) => point.Model.Date,
-                DataLabelsPosition = LiveChartsCore.Measure.DataLabelsPosition.Bottom
+                DataLabelsPosition = LiveChartsCore.Measure.DataLabelsPosition.Top
             });
         }
 	}

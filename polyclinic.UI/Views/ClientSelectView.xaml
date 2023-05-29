@@ -17,55 +17,57 @@
     </ContentPage.Behaviors>
     <Grid
         RowDefinitions="*,Auto">
-        <VerticalStackLayout
-            Grid.Row="0"
-            Margin="10"
-            Spacing="10">
-            <Label
-                TextColor="Red"
-                Text="{Binding Warning}"
-                IsVisible="{Binding WarningVisible}"/>
-            <Entry
-                x:Name="entry"
-                ReturnCommand="{Binding ShowClientsCommand}">
-                <Entry.Behaviors>
-                    <toolkit:EventToCommandBehavior EventName="TextChanged"
-                                                    Command="{Binding ShowClientsCommand}"
-                                                    CommandParameter="{Binding Source={x:Reference entry}, Path=Text}"/>
-                </Entry.Behaviors>
-            </Entry>
-            <Frame
-                Margin="0,2.5"
-                IsVisible="{Binding SelectedClientVisible}"
-                BackgroundColor="Green">
-                <StackLayout Spacing="10">
-                    <Label Text="{Binding SelectedClient.FullName}"/>
-                    <Label Text="{Binding SelectedClient.BirthDate, Converter={StaticResource DateConverter}}"/>
-                </StackLayout>
-            </Frame>
-            <CollectionView
-                    ItemsSource="{Binding Clients}"
-                    IsVisible="{Binding ClientsVisible}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:Client">
-                        <Frame
-                                Margin="0,2.5">
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ClientSelectViewModel} },
-                                        Path=SelectClientCommand}"
-                                        CommandParameter="{Binding}"/>
-                            </Frame.GestureRecognizers>
-                            <StackLayout
-                                Spacing="10">
-                                <Label Text="{Binding FullName}"/>
-                                <Label Text="{Binding BirthDate, Converter={StaticResource DateConverter}}"/>
-                            </StackLayout>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </VerticalStackLayout>
+        <ScrollView>
+            <VerticalStackLayout
+                Grid.Row="0"
+                Margin="10"
+                Spacing="10">
+                <Label
+                    TextColor="Red"
+                    Text="{Binding Warning}"
+                    IsVisible="{Binding WarningVisible}"/>
+                <Entry
+                    x:Name="entry"
+                    ReturnCommand="{Binding ShowClientsCommand}">
+                    <Entry.Behaviors>
+                        <toolkit:EventToCommandBehavior EventName="TextChanged"
+                                                        Command="{Binding ShowClientsCommand}"
+                                                        CommandParameter="{Binding Source={x:Reference entry}, Path=Text}"/>
+                    </Entry.Behaviors>
+                </Entry>
+                <Frame
+                    Margin="0,2.5"
+                    IsVisible="{Binding SelectedClientVisible}"
+                    BackgroundColor="Green">
+                    <StackLayout Spacing="10">
+                        <Label Text="{Binding SelectedClient.FullName}"/>
+                        <Label Text="{Binding SelectedClient.BirthDate, Converter={StaticResource DateConverter}}"/>
+                    </StackLayout>
+                </Frame>
+                <CollectionView
+                        ItemsSource="{Binding Clients}"
+                        IsVisible="{Binding ClientsVisible}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Client">
+                            <Frame
+                                    Margin="0,2.5">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ClientSelectViewModel} },
+                                            Path=SelectClientCommand}"
+                                            CommandParameter="{Binding}"/>
+                                </Frame.GestureRecognizers>
+                                <StackLayout
+                                    Spacing="10">
+                                    <Label Text="{Binding FullName}"/>
+                                    <Label Text="{Binding BirthDate, Converter={StaticResource DateConverter}}"/>
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
         <VerticalStackLayout
             Grid.Row="1"
             Margin="10"
