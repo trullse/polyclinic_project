@@ -85,11 +85,6 @@ namespace polyclinic.UI.ViewModels
 			await Shell.Current.GoToAsync(nameof(AppointmentDetailsView), parameters);
 		}
 
-		private async Task GotoAddClientPage()
-		{
-			await Shell.Current.GoToAsync(nameof(AddClientView));
-		}
-
 		private async Task GotoAddAppointmentPage(Client client)
 		{
 			IDictionary<string, object> parameters = new Dictionary<string, object>()

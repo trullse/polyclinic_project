@@ -3,22 +3,32 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="polyclinic.UI.Views.AddClientView"
              Title="Add Client">
-    <VerticalStackLayout Margin="5"
-                         Spacing="10">
-        <Label Text="Name:"/>
-        <Entry Text="{Binding Name}"/>
-        <Label Text="Surname:"/>
-        <Entry Text="{Binding Surname}"/>
-        <Label Text="Patronymic (if exists):"/>
-        <Entry Text="{Binding Patronymic}"/>
-        <Label Text="Date of Birth:"/>
-        <DatePicker Format="dd/mm/yyyy"
-                    Date="{Binding BirthDate}"/>
-        <Label Text="{Binding Warning}"
-               IsVisible="{Binding WarningVisible}"
-               TextColor="Red"/>
-        <Button Text="Add client"
-                HorizontalOptions="Center"
-                Command="{Binding AddClientCommand}"/>
-    </VerticalStackLayout>
+    <Grid
+        RowDefinitions="*,Auto">
+        <ScrollView>
+            <VerticalStackLayout Margin="10"
+                                 Spacing="10"
+                                 Grid.Row="0">
+                <Label Text="{Binding Warning}"
+                       IsVisible="{Binding WarningVisible}"
+                       TextColor="Red"/>
+                <Label Text="Name:"/>
+                <Entry Text="{Binding Name}"/>
+                <Label Text="Surname:"/>
+                <Entry Text="{Binding Surname}"/>
+                <Label Text="Patronymic (if exists):"/>
+                <Entry Text="{Binding Patronymic}"/>
+                <Label Text="Date of Birth:"/>
+                <DatePicker Format="dd/mm/yyyy"
+                            Date="{Binding BirthDate}"/>
+            </VerticalStackLayout>
+        </ScrollView>
+        <VerticalStackLayout
+            Grid.Row="1"
+            Margin="10"
+            Spacing="10">
+            <Button Text="Add client"
+                    Command="{Binding AddClientCommand}"/>
+        </VerticalStackLayout>
+    </Grid>
 </ContentPage>

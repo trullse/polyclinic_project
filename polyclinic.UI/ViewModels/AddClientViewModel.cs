@@ -19,6 +19,8 @@ namespace polyclinic.UI.ViewModels
         public AddClientViewModel(IClientService clientService)
         {
             _clientService = clientService;
+
+            BirthDate = DateTime.Now;
         }
 
         [ObservableProperty]
