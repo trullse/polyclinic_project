@@ -61,8 +61,8 @@
 								Margin="0,2.5">
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer
-										Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ClientsViewModel} },
-										Path=ShowClientDetailsCommand}"
+										Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:DoctorsViewModel} },
+										Path=ShowDoctorDetailsCommand}"
 										CommandParameter="{Binding}"/>
                                 </Frame.GestureRecognizers>
                                 <StackLayout Spacing="10"

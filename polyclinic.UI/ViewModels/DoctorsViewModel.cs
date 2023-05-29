@@ -26,11 +26,11 @@ namespace polyclinic.UI.ViewModels
         string searchText = "";
 
         [RelayCommand]
-        public async Task ShowDoctorsDetails(Doctor doctor)
+        public async Task ShowDoctorDetails(Doctor doctor)
         {
             IDictionary<string, object> parameters = new Dictionary<string, object>()
             {
-               { "SelectedClient", doctor }
+               { "SelectedDoctor", doctor }
             };
             await Shell.Current.GoToAsync(nameof(DoctorDetailsView), parameters);
         }
