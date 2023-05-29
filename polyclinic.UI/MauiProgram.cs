@@ -68,6 +68,8 @@ namespace polyclinic.UI
             services.AddTransient<ClientsView>();
             services.AddTransient<DoctorsView>();
             services.AddTransient<StatisticsView>();
+            services.AddTransient<ClientDetailsView>();
+            services.AddTransient<DoctorDetailsView>();
 
             // ViewModels
             services.AddSingleton<AppointmentsViewModel>();
@@ -80,6 +82,8 @@ namespace polyclinic.UI
             services.AddTransient<ClientsViewModel>();
             services.AddTransient<DoctorsViewModel>();
             services.AddTransient<StatisticsViewModel>();
+            services.AddTransient<ClientDetailsViewModel>();
+            services.AddTransient<DoctorDetailsViewModel>();
         }
 
         private static void AddDbContext(MauiAppBuilder builder)

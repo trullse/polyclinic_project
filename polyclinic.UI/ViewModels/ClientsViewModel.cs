@@ -29,7 +29,11 @@ namespace polyclinic.UI.ViewModels
         [RelayCommand]
         public async Task ShowClientDetails(Client client)
         {
-            return;
+            IDictionary<string, object> parameters = new Dictionary<string, object>()
+            {
+               { "SelectedClient", client }
+            };
+            await Shell.Current.GoToAsync(nameof(ClientDetailsView), parameters);
         }
 
         [RelayCommand]
