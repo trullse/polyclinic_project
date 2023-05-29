@@ -4,7 +4,7 @@
              xmlns:viemodels="clr-namespace:polyclinic.UI.ViewModels"
              x:Class="polyclinic.UI.Views.AddDoctorView"
              x:DataType="viemodels:AddDoctorViewModel"
-             Title="AddDoctorView">
+             Title="Add doctor">
     <Grid
         RowDefinitions="*,Auto">
         <ScrollView>

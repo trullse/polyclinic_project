@@ -6,7 +6,7 @@
 			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:converters="clr-namespace:polyclinic.UI.ValueConverters"
 			 x:Class="polyclinic.UI.Views.AppointmentDetailsView"
-			 Title="AppointmentDetailsView"
+			 Title="Appointment details"
 			 x:DataType="viewmodels:AppointmentDetailsViewModel">
 	<ContentPage.Behaviors>
 		<toolkit:EventToCommandBehavior EventName="Loaded"

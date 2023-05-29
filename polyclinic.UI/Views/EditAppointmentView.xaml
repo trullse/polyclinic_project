@@ -5,7 +5,7 @@
              xmlns:viewmodels="clr-namespace:polyclinic.UI.ViewModels"
              x:Class="polyclinic.UI.Views.EditAppointmentView"
              x:DataType="viewmodels:EditAppointmentViewModel"
-             Title="EditAppointmentView">
+             Title="Edit appointment">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded"
                                         Command="{Binding GetInfoCommand}"/>
