@@ -34,6 +34,10 @@ namespace polyclinic.UI.ViewModels
 
         [ObservableProperty]
 		Filter selectedFilter = Filter.All;
+		[ObservableProperty]
+		DateTime selectedDate = DateTime.Today;
+		[ObservableProperty]
+		bool dateVisible = false;
 
 		[RelayCommand]
 		async void UpdateAppointmentsList() => await GetAppointments();
@@ -45,11 +49,14 @@ namespace polyclinic.UI.ViewModels
 		public async Task GetAppointments()
 		{
 			await _appointmentsService.GetConnections();
+			DateVisible = false;
 			IReadOnlyList<Appointment> appointments;
 			switch (SelectedFilter)
 			{
 				case Filter.All:
 					appointments = await _appointmentsService.GetOnDateAsync(DateTime.Today);
+					appointments = appointments.Where(a => a.AppointmentStatus != Appointment.Status.Missed 
+					&& a.AppointmentStatus != Appointment.Status.Ended).ToList();
 					break;
 				case Filter.Upcoming:
 					appointments = await _appointmentsService.GetOnDateAsync(DateTime.Today, Appointment.Status.Booked);
@@ -61,7 +68,8 @@ namespace polyclinic.UI.ViewModels
                     appointments = await _appointmentsService.GetOnDateAsync(DateTime.Today, Appointment.Status.ToPay);
                     break;
                 case Filter.History:
-                    appointments = await _appointmentsService.GetAllAsync();
+					DateVisible = true;
+                    appointments = await _appointmentsService.GetOnDateAsync(SelectedDate);
 					break;
 				default:
 					throw new NotImplementedException();

@@ -76,6 +76,16 @@
                 </RadioButton>
             </HorizontalStackLayout>
 
+            <DatePicker
+                Date="{Binding SelectedDate}"
+                Format="dd/mm/yyyy"
+                IsVisible="{Binding DateVisible}">
+                <DatePicker.Behaviors>
+                    <toolkit:EventToCommandBehavior EventName="DateSelected"
+													Command="{Binding UpdateAppointmentsListCommand}"/>
+                </DatePicker.Behaviors>
+            </DatePicker>
+
             <!-- Appointments -->
             
             <CollectionView
