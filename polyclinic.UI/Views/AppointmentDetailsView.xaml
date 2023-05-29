@@ -23,6 +23,7 @@
 			IconImageSource="edit.png"
 			Command="{Binding EditAppointmentCommand}"/>
         <ToolbarItem
+            IconImageSource="delete.png"
             Command="{Binding DeleteAppointmentCommand}"/>
     </ContentPage.ToolbarItems>
 	<Grid
