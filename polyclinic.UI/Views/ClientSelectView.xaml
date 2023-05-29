@@ -8,11 +8,16 @@
              x:Class="polyclinic.UI.Views.ClientSelectView"
              x:DataType="viewmodels:ClientSelectViewModel"
              Title="ClientSelectView">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            IconImageSource="add.png"
+            Command="{Binding ToAddClientCommand}"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Resources>
         <converters:DateValueConverter x:Key="DateConverter"/>
     </ContentPage.Resources>
     <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior EventName="Loaded"
+        <toolkit:EventToCommandBehavior EventName="NavigatedTo"
                                         Command="{Binding ShowClientsCommand}"/>
     </ContentPage.Behaviors>
     <Grid

@@ -56,6 +56,8 @@ namespace polyclinic.UI.ViewModels
 		[RelayCommand]
 		async void ToConfirmation() => await SubmitClientAsync();
 		[RelayCommand]
+		async void ToAddClient() => await AddClientAsync();
+		[RelayCommand]
 		async void ShowClients(string searchText) => await GetClientsAsync(searchText);
 		[RelayCommand]
 		async void SelectClient(Client client) => await SelectClientAsync(client);
@@ -109,6 +111,11 @@ namespace polyclinic.UI.ViewModels
 				   { "AddClient", SelectedClient }
 				};
 			await Shell.Current.GoToAsync(nameof(SubmitAppointmentView), parameters);
+		}
+
+		public async Task AddClientAsync()
+		{
+			await Shell.Current.GoToAsync(nameof(AddClientView));
 		}
 
 		private void ShowWarning(string message)
