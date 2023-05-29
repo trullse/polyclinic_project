@@ -38,7 +38,7 @@ namespace polyclinic.UI.ViewModels
         [RelayCommand]
         public async Task AddDoctor()
         {
-            //await Shell.Current.GoToAsync(nameof(AddDoctorView));
+            await Shell.Current.GoToAsync(nameof(AddDoctorView));
         }
 
         [RelayCommand]
