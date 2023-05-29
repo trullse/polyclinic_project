@@ -11,19 +11,31 @@
             <converters:StringToBoolConverter x:Key="BoolConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <VerticalStackLayout
-        Margin="10"
-        Spacing="10">
-        <Label
-            Text="{Binding SelectedDoctor.Name, StringFormat='Name: {0}'}"/>
-        <Label
-            Text="{Binding SelectedDoctor.Surname, StringFormat='Surname: {0}'}"/>
-        <Label
-            Text="{Binding SelectedDoctor.Patronymic, StringFormat='Patronymic: {0}'}"
-            IsVisible="{Binding SelectedDoctor.Patronymic, Converter={StaticResource BoolConverter}}"/>
-        <Label
-            Text="{Binding SelectedDoctor.Specialization, StringFormat='Specialization: {0}'}"/>
-        <Label
-            Text="{Binding SelectedDoctor.Qualification, StringFormat='Qualification: {0}'}"/>
-    </VerticalStackLayout>
+    <Grid
+        RowDefinitions="*, Auto">
+        <VerticalStackLayout
+            Margin="10"
+            Spacing="10"
+            Grid.Row="0">
+            <Label
+                Text="{Binding SelectedDoctor.Name, StringFormat='Name: {0}'}"/>
+            <Label
+                Text="{Binding SelectedDoctor.Surname, StringFormat='Surname: {0}'}"/>
+            <Label
+                Text="{Binding SelectedDoctor.Patronymic, StringFormat='Patronymic: {0}'}"
+                IsVisible="{Binding SelectedDoctor.Patronymic, Converter={StaticResource BoolConverter}}"/>
+            <Label
+                Text="{Binding SelectedDoctor.Specialization, StringFormat='Specialization: {0}'}"/>
+            <Label
+                Text="{Binding SelectedDoctor.Qualification, StringFormat='Qualification: {0}'}"/>
+        </VerticalStackLayout>
+        <VerticalStackLayout
+            Margin="10"
+            Spacing="10"
+            Grid.Row="1">
+            <Button
+                Text="Manage shifts"
+                Command="{Binding GotoShiftsManagerCommand}"/>
+        </VerticalStackLayout>
+    </Grid>
 </ContentPage>

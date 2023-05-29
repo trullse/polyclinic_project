@@ -52,6 +52,35 @@ namespace polyclinic.Application.Services
             }
         }
 
+        public async Task AddOnInterval(Doctor doctor, DateTime start, DateTime end, bool start_with_first)
+        {
+            Shift.ShiftType shiftType;
+            if (start_with_first)
+                shiftType = Shift.ShiftType.First;
+            else
+                shiftType = Shift.ShiftType.Second;
+            for (var date = start.Date; date <= end.Date; date = date.AddDays(1))
+            {
+                var found = await GetByDoctorAndDayAsync(doctor.Id, DateOnly.FromDateTime(date));
+                if (found == null)
+                {
+                    Shift shift = new Shift()
+                    {
+                        DoctorId = doctor.Id,
+                        Date = DateOnly.FromDateTime(date),
+                        Type = shiftType
+                    };
+                    await AddAsync(shift);
+
+                    // Change shift
+                    if (shiftType == Shift.ShiftType.First)
+                        shiftType = Shift.ShiftType.Second;
+                    else
+                        shiftType = Shift.ShiftType.First;
+                }
+            }
+        }
+
         public Task DeleteAsync(Shift item)
         {
             _unitOfWork.ShiftRepository.DeleteAsync(item);

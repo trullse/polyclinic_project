@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:polyclinic.UI.ViewModels"
+             x:Class="polyclinic.UI.Views.AddShiftView"
+             x:DataType="viewmodels:AddShiftViewModel"
+             Title="Add shift">
+    <Grid
+        RowDefinitions="*,Auto">
+        <VerticalStackLayout
+            Margin="10"
+            Spacing="10"
+            Grid.Row="0">
+            <Label
+                TextColor="Red"
+                Text="{Binding WarningMessage}"
+                IsVisible="{Binding WarningVisible}"/>
+            <Grid
+                ColumnDefinitions="*,*">
+                <VerticalStackLayout
+                    Spacing="10"
+                    Grid.Column="0">
+                    <Label
+                        Text="Start date:"/>
+                    <DatePicker
+                        Format="dd/mm/yyyy"
+                        Date="{Binding DateStart}"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout
+                    Spacing="10"
+                    Grid.Column="1">
+                    <Label
+                        Text="End date:"/>
+                    <DatePicker
+                        Format="dd/mm/yyyy"
+                        Date="{Binding DateEnd}"
+                        MinimumDate="{Binding DateStart}"/>
+                </VerticalStackLayout>
+            </Grid>
+            <Label
+                Text="Start with:"/>
+            <HorizontalStackLayout
+                Spacing="50"
+                HorizontalOptions="Start">
+                <RadioButton
+                        Content="First shift" 
+                        IsChecked="{Binding StartWithFirst}"/>
+                <RadioButton
+                        Content="Second shift"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+        <VerticalStackLayout
+            Margin="10"
+            Spacing="10"
+            Grid.Row="1">
+            <Button
+                Text="Add shifts"
+                Command="{Binding AddShiftsCommand}"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

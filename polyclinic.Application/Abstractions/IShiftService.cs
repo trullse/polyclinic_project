@@ -10,5 +10,7 @@ namespace polyclinic.Application.Abstractions
     public interface IShiftService : IBaseService<Shift>
     {
         Task<Shift?> GetByDoctorAndDayAsync(int doctorId, DateOnly date);
+        Task AddOnInterval(Doctor doctor, DateTime start, DateTime end, bool start_with_first);
+
     }
 }
