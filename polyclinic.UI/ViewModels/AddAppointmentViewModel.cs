@@ -132,6 +132,7 @@ namespace polyclinic.UI.ViewModels
 
 		public async Task GetFreeTalonsAsync()
 		{
+			CloseWarning();
 			await MainThread.InvokeOnMainThreadAsync(() =>
 			{
 				Talons.Clear();
