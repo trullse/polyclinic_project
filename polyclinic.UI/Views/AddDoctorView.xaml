@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viemodels="clr-namespace:polyclinic.UI.ViewModels"
+             x:Class="polyclinic.UI.Views.AddDoctorView"
+             x:DataType="viemodels:AddDoctorViewModel"
+             Title="Add doctor">
+    <Grid
+        RowDefinitions="*,Auto">
+        <ScrollView>
+            <VerticalStackLayout Margin="10"
+                                 Spacing="10"
+                                 Grid.Row="0">
+                <Label Text="{Binding Warning}"
+                       IsVisible="{Binding WarningVisible}"
+                       TextColor="Red"/>
+                <Label Text="Name:"/>
+                <Entry Text="{Binding Name}"/>
+                <Label Text="Surname:"/>
+                <Entry Text="{Binding Surname}"/>
+                <Label Text="Patronymic (if exists):"/>
+                <Entry Text="{Binding Patronymic}"/>
+                <Label Text="Specialization:"/>
+                <Entry Text="{Binding Specialization}"/>
+                <Label Text="Qualification:"/>
+                <Entry Text="{Binding Qualification}"/>
+            </VerticalStackLayout>
+        </ScrollView>
+        <VerticalStackLayout
+            Grid.Row="1"
+            Margin="10"
+            Spacing="10">
+            <Button Text="Add client"
+                    Command="{Binding AddDoctorCommand}"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

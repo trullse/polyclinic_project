@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:polyclinic.UI.ViewModels"
+             xmlns:converters="clr-namespace:polyclinic.UI.ValueConverters"
+             x:Class="polyclinic.UI.Views.SubmitAppointmentView"
+             x:DataType="viewmodels:SubmitAppointmentViewModel"
+             Title="Submit the appointment">
+    <ContentPage.Resources>
+        <converters:DateOnlyConverter x:Key="DateConverter"/>
+    </ContentPage.Resources>
+    <Grid
+        RowDefinitions="*,Auto">
+        <VerticalStackLayout
+		    Margin="10"
+		    Spacing="10"
+            Grid.Row="0">
+            <Label
+                Text="Client:"/>
+            <Frame>
+                <VerticalStackLayout Spacing="10">
+                    <Label
+					    Text="{Binding AddClient.FullName}"/>
+                    <Label
+					    Text="{Binding AddClient.BirthDate, Converter={StaticResource DateConverter}}"/>
+                </VerticalStackLayout>
+            </Frame>
+            <Label
+                Text="Doctor:"/>
+            <Frame>
+                <VerticalStackLayout Spacing="10">
+                    <Label
+					    Text="{Binding AddDoctor.FullName}"/>
+                    <Label
+					    Text="{Binding AddDoctor.Specialization}"/>
+                </VerticalStackLayout>
+            </Frame>
+            <Label
+			    Text="{Binding AddDate, Converter={StaticResource DateConverter}, StringFormat='Appointment date: {0}'}"/>
+            <Label
+			    Text="{Binding AddTalon.AppointmentTime, StringFormat='Appointment time: {0}'}"/>
+        </VerticalStackLayout>
+        <VerticalStackLayout
+            Margin="10"
+		    Spacing="10"
+            Grid.Row="1">
+            <Button
+                Text="Submit"
+                Command="{Binding SubmitCommand}"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

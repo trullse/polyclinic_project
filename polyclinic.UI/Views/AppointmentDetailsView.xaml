@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:models="clr-namespace:polyclinic.Domain.Entities;assembly=polyclinic.Domain"
+			 xmlns:viewmodels="clr-namespace:polyclinic.UI.ViewModels"
+			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:converters="clr-namespace:polyclinic.UI.ValueConverters"
+			 x:Class="polyclinic.UI.Views.AppointmentDetailsView"
+			 Title="Appointment details"
+			 x:DataType="viewmodels:AppointmentDetailsViewModel">
+	<ContentPage.Behaviors>
+		<toolkit:EventToCommandBehavior EventName="Loaded"
+										Command="{Binding ShowStatusCommand}"/>
+	</ContentPage.Behaviors>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:DateOnlyConverter x:Key="DateConverter"/>
+            <converters:StatusValueConverter x:Key="StatusConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+	<ContentPage.ToolbarItems>
+		<ToolbarItem
+			IconImageSource="edit.png"
+			Command="{Binding EditAppointmentCommand}"/>
+        <ToolbarItem
+            IconImageSource="delete.png"
+            Command="{Binding DeleteAppointmentCommand}"/>
+    </ContentPage.ToolbarItems>
+	<Grid
+		RowDefinitions="*,Auto">
+		<ScrollView>
+			<VerticalStackLayout
+				Margin="5"
+				Spacing="10"
+				Grid.Row="0">
+				<Label
+					Text="Client:"/>
+				<Frame>
+					<VerticalStackLayout Spacing="10">
+						<Label
+							Text="{Binding SelectedAppointment.Client.FullName}"/>
+						<Label
+							Text="{Binding SelectedAppointment.Client.BirthDate, Converter={StaticResource DateConverter}}"/>
+					</VerticalStackLayout>
+				</Frame>
+				<Label
+					Text="Doctor:"/>
+				<Frame>
+					<VerticalStackLayout Spacing="10">
+						<Label
+							Text="{Binding SelectedAppointment.Doctor.FullName}"/>
+						<Label
+							Text="{Binding SelectedAppointment.Doctor.Specialization}"/>
+					</VerticalStackLayout>
+				</Frame>
+                <Label
+					Text="{Binding SelectedAppointment.AppointmentDate, StringFormat='Appointment date: {0}'}"/>
+                <Label
+                    Text="{Binding AppointmentStatus, Converter={StaticResource StatusConverter}, StringFormat='Status: {0}'}"/>
+
+                <Label
+					Text="Diagnosis:"
+                    IsVisible="{Binding SetInfoVisible}"/>
+				<Entry
+					Text="{Binding DiagnosisEntryText}"
+                    IsVisible="{Binding SetInfoVisible}"/>
+				<Label
+					Text="Treatment cost:"
+                    IsVisible="{Binding SetInfoVisible}"/>
+                <Entry
+					Text="{Binding CostEntryText}"
+					Keyboard="Numeric"
+                    IsVisible="{Binding SetInfoVisible}"/>
+				
+                <!-- ToPay and Ended statuses -->
+                <Label
+					Text="{Binding AppointmentDiagnosis, StringFormat='Diagnosis: {0}'}"
+                    IsVisible="{Binding AppointmentInfoVisible}"/>
+                <Label
+					Text="{Binding AppointmentCost, StringFormat='Treatment cost: {0}'}"
+                    IsVisible="{Binding AppointmentInfoVisible}"/>
+
+            </VerticalStackLayout>
+		</ScrollView>
+		<VerticalStackLayout
+			Margin="5"
+			Spacing="10"
+			Grid.Row="1">
+
+            <Label
+                TextColor="Red"
+                Text="{Binding WarningMessage}"
+                IsVisible="{Binding WarningVisible}"/>
+
+            <!-- Information according to status -->
+
+			<!-- Booked status -->
+			<Grid
+				ColumnDefinitions="*,*"
+				ColumnSpacing="10"
+				IsVisible="{Binding BookedVisible}">
+				<Button
+					Text="Approve"
+					Grid.Column="0"
+					Command="{Binding ChangeStatusCommand}"
+					CommandParameter="{x:Static models:Appointment+Status.Approved}"/>
+				<Button
+					Text="Miss confirm"
+					Grid.Column="1"
+					Command="{Binding ChangeStatusCommand}"
+					CommandParameter="{x:Static models:Appointment+Status.Missed}"/>
+			</Grid>
+
+			<!-- Approved status -->
+			<Button 
+				Text="Finish"
+				IsVisible="{Binding ApprovedVisible}"
+				Command="{Binding ShowEntriesCommand}"/>
+
+            <Button
+					Text="Confirm"
+					IsVisible="{Binding SetInfoVisible}"
+					Command="{Binding AddAppointmentInfoCommand}"/>
+            
+            <!-- ToPay status -->
+            <Button
+                Text="Confirm payment"
+                IsVisible="{Binding ToPayVisible}"
+                Command="{Binding ChangeStatusCommand}"
+                CommandParameter="{x:Static models:Appointment+Status.Ended}"/>
+        </VerticalStackLayout>
+	</Grid>
+</ContentPage>

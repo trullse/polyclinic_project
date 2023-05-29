@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:viewmodels="clr-namespace:polyclinic.UI.ViewModels"
+			 xmlns:converters="clr-namespace:polyclinic.UI.ValueConverters"
+			 xmlns:uientities="clr-namespace:polyclinic.UI.Entities"
+			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+			 xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+			 x:Class="polyclinic.UI.Views.StatisticsView"
+			 x:DataType="viewmodels:StatisticsViewModel"
+			 Title="Statistics">
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<converters:DateOnlyConverter x:Key="DateConverter"/>
+			<converters:MoneyValueConverter x:Key="MoneyConverter"/>
+            <converters:DifferenceToArrowConverter x:Key="DiffConverter"/>
+            <converters:MonthConverter x:Key="MonthConverter"/>
+        </ResourceDictionary>
+	</ContentPage.Resources>
+	<ContentPage.Behaviors>
+		<toolkit:EventToCommandBehavior EventName="NavigatedTo"
+										Command="{Binding GetStatisticsCommand}"/>
+	</ContentPage.Behaviors>
+	<ScrollView
+		Orientation="Horizontal"
+		HorizontalScrollBarVisibility="Default">
+		<HorizontalStackLayout
+			Margin="10"
+			Spacing="10">
+			<Frame
+				WidthRequest="500">
+				<Grid RowDefinitions="Auto, *">
+					<VerticalStackLayout
+						Margin="10"
+						Spacing="10"
+						Grid.Row="0">
+						<Label
+							Text="{Binding Date, StringFormat='Today, {0}', Converter={StaticResource DateConverter}}"
+							FontSize="Medium"
+							FontAttributes="Bold"/>
+						<Label
+							Text="{Binding Appointments_count, StringFormat='Appointments expected: {0}'}"/>
+                        <HorizontalStackLayout
+                            Spacing="10">
+                            <Label
+								Text="{Binding Appointments_over, StringFormat='Appointments over: {0}'}"/>
+                            <Image
+                                Source="{Binding Difference_appointments, Converter={StaticResource DiffConverter}}"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout
+                            Spacing="10">
+                            <Label
+								Text="{Binding Current_income, StringFormat='Current income: {0}', Converter={StaticResource MoneyConverter}}"/>
+                            <Image
+                                Source="{Binding Difference_income, Converter={StaticResource DiffConverter}}"/>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+					<lvc:CartesianChart Grid.Row="1"
+							Series="{Binding Series}"
+							XAxes="{Binding XAxes}"
+                            YAxes="{Binding YAxes}">
+					</lvc:CartesianChart>
+				</Grid>
+			</Frame>
+			<Frame
+				WidthRequest="500">
+				<Grid RowDefinitions="Auto, *">
+					<VerticalStackLayout
+						Margin="10"
+						Spacing="10"
+						Grid.Row="0">
+						<Label
+							Text="{Binding Date, StringFormat='This month, {0}', Converter={StaticResource MonthConverter}}"
+							FontSize="Medium"
+							FontAttributes="Bold"/>
+
+                        <HorizontalStackLayout
+                            Spacing="10">
+                            <Label
+								Text="{Binding Appointments_over_month, StringFormat='Appointments over: {0}'}"/>
+                            <Image
+                                Source="{Binding Difference_appointments_month, Converter={StaticResource DiffConverter}}"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout
+                            Spacing="10">
+                            <Label
+								Text="{Binding Current_income_month, StringFormat='Current income: {0}', Converter={StaticResource MoneyConverter}}"/>
+                            <Image
+                                Source="{Binding Difference_income_month, Converter={StaticResource DiffConverter}}"/>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+					<lvc:CartesianChart Grid.Row="1"
+							Series="{Binding SeriesMonth}"
+							XAxes="{Binding XAxes}"
+                            YAxes="{Binding YAxes}">
+					</lvc:CartesianChart>
+				</Grid>
+			</Frame>
+		</HorizontalStackLayout>
+	</ScrollView>
+</ContentPage>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:polyclinic.UI.ViewModels"
+			 xmlns:models="clr-namespace:polyclinic.Domain.Entities;assembly=polyclinic.Domain"
+			 xmlns:converters="clr-namespace:polyclinic.UI.ValueConverters"
+			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+			 x:DataType="viewmodels:DoctorsViewModel"
+             x:Class="polyclinic.UI.Views.DoctorsView"
+             Title="Doctors">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="NavigatedTo"
+										Command="{Binding GetDoctorsCommand}"/>
+    </ContentPage.Behaviors>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+			IconImageSource="add.png"
+			Command="{Binding AddDoctorCommand}"/>
+    </ContentPage.ToolbarItems>
+    <Grid
+		RowDefinitions="Auto,*">
+        <VerticalStackLayout
+				Margin="10"
+				Spacing="10"
+            Grid.Row="0">
+            <!-- Search -->
+            <Label
+                    Text="Search a doctor:"/>
+            <Grid
+                    ColumnDefinitions="*,Auto"
+                    ColumnSpacing="10">
+                <Entry
+						Text="{Binding SearchText}"
+						x:Name="entry"
+                        Grid.Column="0">
+                    <Entry.Behaviors>
+                        <toolkit:EventToCommandBehavior EventName="TextChanged"
+                                                        Command="{Binding GetDoctorsCommand}"
+                                                        CommandParameter="{Binding Source={x:Reference entry}, Path=Text}"/>
+                    </Entry.Behaviors>
+                </Entry>
+                <Button
+                        Text="Clear"
+                        Grid.Column="1"
+						Command="{Binding ClearSearchCommand}"/>
+            </Grid>
+        </VerticalStackLayout>
+        <ScrollView
+            Grid.Row="1">
+            <VerticalStackLayout
+				Margin="10"
+				Spacing="10">
+
+                <!-- Doctors -->
+
+                <CollectionView
+					ItemsSource="{Binding Doctors}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Doctor">
+                            <Frame
+								Margin="0,2.5">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer
+										Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:DoctorsViewModel} },
+										Path=ShowDoctorDetailsCommand}"
+										CommandParameter="{Binding}"/>
+                                </Frame.GestureRecognizers>
+                                <StackLayout Spacing="10"
+											 Grid.Column="0">
+                                    <Label Text="{Binding FullName}"/>
+                                    <Label Text="{Binding Specialization}"/>
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

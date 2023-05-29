@@ -9,11 +9,23 @@
 
     <ShellContent
         Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        ContentTemplate="{DataTemplate views:WelcomeView}"
+        Route="WelcomeView"/>
     <ShellContent
         Title="Appointments"
         ContentTemplate="{DataTemplate views:AppointmentsView}"
         Route="AppointmentsView" />
+    <ShellContent
+        Title="Clients"
+        ContentTemplate="{DataTemplate views:ClientsView}"
+        Route="ClientsView"/>
+    <ShellContent
+        Title="Doctors"
+        ContentTemplate="{DataTemplate views:DoctorsView}"
+        Route="DoctorsView"/>
+    <ShellContent
+        Title="Statistics"
+        ContentTemplate="{DataTemplate views:StatisticsView}"
+        Route="StatisticsView"/>
 
 </Shell>
